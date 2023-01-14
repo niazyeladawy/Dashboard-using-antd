@@ -1,64 +1,61 @@
-import { Button, Checkbox, Form, Input, Upload } from 'antd';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { Button, Checkbox, Form, Input } from 'antd';
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../components/firebase';
 import routerLinks from '../../components/routerLinks';
 import AuthContext from '../../context/auth/AuthContext';
 import AuthProvider from '../../context/auth/AuthProvider';
-import './LoginForm.scss'
+import './ForgetPasswordForm.scss'
 import { notification, Space } from 'antd';
 import UserProvider from '../../context/auth/UserProvider';
 import UserContext from '../../context/auth/UserProvider';
 
 
-const LoginForm = () => {
 
-    const { login } = useContext(AuthContext);
-    const { setUser } = useContext(UserContext);
+const ForgetPasswordForm = () => {
 
     const navigate = useNavigate()
+
     const onFinish = (values) => {
-
-        signInWithEmailAndPassword(auth, values.email, values.password)
-            .then((userCredintials) => {
-                setUser(userCredintials.user)
-                login()
-                navigate(routerLinks.homePage)
-
-            }).catch((e) => {
-                notification.error({
-                    message: 'error',
-                    description: 'invalid Credintials',
+        sendPasswordResetEmail(auth, values.email)
+            .then(() => {
+                notification.success({
+                    message: 'success',
+                    description: 'Password Reset send to your email',
                     duration: 4,
                 });
+                navigate(routerLinks.loginPage)
             })
+            .catch((error) => {
+                notification.error({
+                    message: 'error',
+                    description: 'try again later',
+                    duration: 4,
+                });
+            });
     };
     const onFinishFailed = (errorInfo) => {
 
     };
 
 
-
-
     return (
         <div className='login_form'>
             <Form
                 name="basic"
-
                 wrapperCol={{
                     offset: 8,
                     span: 16,
                 }}
                 initialValues={{
-                    remember: true,
+
                 }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
                 layout='vertical'
             >
-
                 <Form.Item
                     name="email"
                     rules={[
@@ -75,29 +72,8 @@ const LoginForm = () => {
                     <Input size="large" placeholder='Email' />
                 </Form.Item>
 
-                <Form.Item
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                >
-                    <Input.Password size="large" placeholder='Password' />
-                </Form.Item>
 
-                <Form.Item
-                    name="remember"
-                    valuePropName="checked"
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
-                >
-                    <Checkbox>Remember me</Checkbox>
-                    <Link to={routerLinks.forgetPasswordPage}>Forget Password</Link>
-                </Form.Item>
+
                 <Form.Item
                     wrapperCol={{
                         offset: 8,
@@ -106,12 +82,12 @@ const LoginForm = () => {
                 >
                     <div className='submit_btn_wrapper'>
                         <Button size='large' type="primary" htmlType="submit">
-                            Login
+                            Send Code
                         </Button>
                     </div>
 
                     <div>
-                        <span>Don't have accout yet <Link to={routerLinks.registerPage}>Register Here</Link>  </span>
+                        <span>Already have account  <Link to={routerLinks.loginPage}>Login Here</Link>  </span>
                     </div>
 
                 </Form.Item>
@@ -121,4 +97,4 @@ const LoginForm = () => {
     );
 }
 
-export default LoginForm
+export default ForgetPasswordForm

@@ -1,15 +1,14 @@
 import { Col, Row } from 'antd'
 import React from 'react'
-import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 import login_cover from '../../assets/imgs/login_cover.svg'
-import './LoginPage.scss'
 
-const LoginPage = () => {
+const RegisterPage = () => {
     return (
         <div className='login_page'>
             <Row >
                 <Col sm={24} md={12}>
-                    <LoginForm />
+                    <RegisterForm />
                 </Col>
                 <Col sm={24} md={12}>
                     <div className='login_cover_img'>
@@ -22,4 +21,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default RegisterPage

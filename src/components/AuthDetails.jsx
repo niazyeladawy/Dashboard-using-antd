@@ -11,7 +11,7 @@ const AuthDetails = () => {
             if(user)
             {
                 setAuthUser(user)
-                console.log("user",user)
+                
             }
             else{
                 setAuthUser(null)

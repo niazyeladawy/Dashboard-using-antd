@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './components/App';
 import AuthProvider from './context/auth/AuthProvider';
 import { UserProvider } from './context/auth/UserProvider';
+import { UsersProvider } from './context/auth/usersContext/UsersProvider';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
@@ -12,9 +13,12 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <UserProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <UsersProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </UsersProvider>
+
       </UserProvider>
 
 
@@ -23,6 +27,6 @@ root.render(
 );
 
 // If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
+// to log results (for example: reportWebVitals(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

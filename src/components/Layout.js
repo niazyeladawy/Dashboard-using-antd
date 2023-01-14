@@ -32,7 +32,7 @@ const AppLayout = ({ children }) => {
     const { logout } = useContext(AuthContext);
     const {user} = useContext(UserContext);
 
-    console.log("curr",user)
+    console.log("user",user)
 
     const [collapsed, setCollapsed] = useState(false);
     const {
@@ -57,6 +57,12 @@ const AppLayout = ({ children }) => {
             icon: <BoldOutlined />,
             path: routerLinks.productsPage,
             label: 'Products',
+        },
+        {
+            key: '4',
+            icon: <UserOutlined />,
+            path: routerLinks.usersPage,
+            label: 'Users',
         },
     ]
 
@@ -132,7 +138,7 @@ const AppLayout = ({ children }) => {
                                         <Menu.Item key="2" icon={<LogoutOutlined />} onClick={handleSignout}>
                                             تسجيل الخروج
                                         </Menu.Item> */}
-                                                <Menu.Item>
+                                                <Menu.Item key='1'>
                                                     <a onClick={handleSignout}>SignOut</a>
                                                 </Menu.Item>
                                             </Menu>
@@ -141,7 +147,7 @@ const AppLayout = ({ children }) => {
                                         <Button className="profile-menu-btn" type="text">
                                             {/* {loadingSignout ? <LoadingOutlined /> : <DownOutlined />} */}
                                             <DownOutlined />
-                                            <span className="user-name" style={{ marginRight: "10px" }}>{user?.user?.email}</span>
+                                            <span className="user-name" style={{ marginRight: "10px" }}>{user?.email}</span>
                                             <Avatar size={38} icon={<UserOutlined />} />
                                         </Button>
                                     </Dropdown>
