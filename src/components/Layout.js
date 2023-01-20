@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Home from '../pages/Home/Home';
 import {
     MenuFoldOutlined,
@@ -19,20 +19,39 @@ import slugify from 'slugify';
 import './layout.css'
 import LoginPage from '../pages/login/LoginPage';
 import { signOut } from 'firebase/auth';
-import { auth } from './firebase';
+import { auth, db } from './firebase';
 import AuthContext from '../context/auth/AuthContext';
 import UserContext from '../context/auth/UserProvider';
 
 
+import { doc, getDoc } from "firebase/firestore";
+
 
 const { Header, Sider, Content } = Layout;
+
+
+
 
 const AppLayout = ({ children }) => {
     let { pathname } = useLocation();
     const { logout } = useContext(AuthContext);
-    const {user} = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
-    console.log("user",user)
+    const [porfileImage, setporfileImage] = useState(null);
+
+    const getUserImage = async () => {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data().img);
+            setporfileImage(docSnap.data().img)
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }
+
+    console.log("user", user)
 
     const [collapsed, setCollapsed] = useState(false);
     const {
@@ -85,6 +104,7 @@ const AppLayout = ({ children }) => {
                     description: ' successfully signed out ',
                     duration: 4,
                 })
+                localStorage.removeItem('firebaseRemember')
                 logout();
                 navigate(routerLinks.loginPage)
             }
@@ -96,6 +116,10 @@ const AppLayout = ({ children }) => {
             });
         })
     }
+
+    useEffect(() => {
+        getUserImage()
+    }, []);
 
 
     return (
@@ -132,13 +156,10 @@ const AppLayout = ({ children }) => {
                                         trigger={['click']}
                                         overlay={
                                             <Menu>
-                                                {/* <Menu.Item key="1" icon={<UserOutlined />}>
-                                            <RouterLink to={routerLinks.ProfilePage}>الملــف الشخصى</RouterLink>
-                                        </Menu.Item>
-                                        <Menu.Item key="2" icon={<LogoutOutlined />} onClick={handleSignout}>
-                                            تسجيل الخروج
-                                        </Menu.Item> */}
-                                                <Menu.Item key='1'>
+                                                <Menu.Item key='1' icon={<UserOutlined />}>
+                                                    <Link to={routerLinks.profilePage}>Profile</Link>
+                                                </Menu.Item>
+                                                <Menu.Item key='2' icon={<LogoutOutlined />}>
                                                     <a onClick={handleSignout}>SignOut</a>
                                                 </Menu.Item>
                                             </Menu>
@@ -148,7 +169,7 @@ const AppLayout = ({ children }) => {
                                             {/* {loadingSignout ? <LoadingOutlined /> : <DownOutlined />} */}
                                             <DownOutlined />
                                             <span className="user-name" style={{ marginRight: "10px" }}>{user?.email}</span>
-                                            <Avatar size={38} icon={<UserOutlined />} />
+                                            <Avatar size={38} icon={<UserOutlined />} src={porfileImage} />
                                         </Button>
                                     </Dropdown>
                                 </div>

@@ -5,7 +5,8 @@ const routerLinks = {
     loginPage: '/login',
     registerPage: '/register',
     forgetPasswordPage: '/forget-password',
-    usersPage: '/users'
+    usersPage: '/users',
+    profilePage: '/profile',
 }
 
 export default routerLinks;

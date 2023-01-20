@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form, Input, Upload } from 'antd';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react'
+import { json, Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../components/firebase';
 import routerLinks from '../../components/routerLinks';
 import AuthContext from '../../context/auth/AuthContext';
@@ -16,12 +16,15 @@ const LoginForm = () => {
 
     const { login } = useContext(AuthContext);
     const { setUser } = useContext(UserContext);
+    const [remember, setRemember] = useState(false);
 
     const navigate = useNavigate()
     const onFinish = (values) => {
+        console.log("valuesvaluesvalues", values)
 
         signInWithEmailAndPassword(auth, values.email, values.password)
             .then((userCredintials) => {
+                localStorage.setItem('firebaseRemember', JSON.stringify(remember))
                 setUser(userCredintials.user)
                 login()
                 navigate(routerLinks.homePage)
@@ -50,9 +53,7 @@ const LoginForm = () => {
                     offset: 8,
                     span: 16,
                 }}
-                initialValues={{
-                    remember: true,
-                }}
+
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -95,7 +96,7 @@ const LoginForm = () => {
                         span: 16,
                     }}
                 >
-                    <Checkbox>Remember me</Checkbox>
+                    <Checkbox checked={remember} onChange={(e) => setRemember(e.target.checked)}>Remember me</Checkbox>
                     <Link to={routerLinks.forgetPasswordPage}>Forget Password</Link>
                 </Form.Item>
                 <Form.Item
