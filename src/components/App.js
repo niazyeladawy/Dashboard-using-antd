@@ -9,7 +9,7 @@ import RegisterPage from '../pages/Register/RegisterPage';
 import AppRoutes from './AppRoutes';
 import { auth } from './firebase';
 import AppLayout from './Layout';
-import Loading from './Loading';
+import Loading from './Loding/Loading';
 import routerLinks from './routerLinks';
 
 
@@ -46,11 +46,9 @@ function App() {
             login()
             setloading(false)
             navigate(location.pathname)
-            console.log("User is signed in.", user);
           } else {
             // No user is signed in.
             setloading(false)
-            console.log("No user is signed in.");
           }
         });
       }
@@ -63,7 +61,6 @@ function App() {
     
   }, [isAuth]);
 
-  console.log("loading",loading);
 
   return (
     <div className="App">

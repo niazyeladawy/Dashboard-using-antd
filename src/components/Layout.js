@@ -23,35 +23,24 @@ import { auth, db } from './firebase';
 import AuthContext from '../context/auth/AuthContext';
 import UserContext from '../context/auth/UserProvider';
 
-
 import { doc, getDoc } from "firebase/firestore";
-
-
 const { Header, Sider, Content } = Layout;
 
-
-
-
 const AppLayout = ({ children }) => {
+
     let { pathname } = useLocation();
     const { logout } = useContext(AuthContext);
-    const { user } = useContext(UserContext);
-
-    const [porfileImage, setporfileImage] = useState(null);
-
+    const { user, firestoreUser, setFirestoreUser } = useContext(UserContext);
     const getUserImage = async () => {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data().img);
-            setporfileImage(docSnap.data().img)
+            setFirestoreUser(docSnap.data())
         } else {
             // doc.data() will be undefined in this case
-            console.log("No such document!");
         }
     }
 
-    console.log("user", user)
 
     const [collapsed, setCollapsed] = useState(false);
     const {
@@ -168,8 +157,8 @@ const AppLayout = ({ children }) => {
                                         <Button className="profile-menu-btn" type="text">
                                             {/* {loadingSignout ? <LoadingOutlined /> : <DownOutlined />} */}
                                             <DownOutlined />
-                                            <span className="user-name" style={{ marginRight: "10px" }}>{user?.email}</span>
-                                            <Avatar size={38} icon={<UserOutlined />} src={porfileImage} />
+                                            <span className="user-name" style={{ marginRight: "10px" }}>{firestoreUser?.username ? firestoreUser.username : user.email}</span>
+                                            <Avatar size={38} icon={<UserOutlined />} src={firestoreUser?.img} />
                                         </Button>
                                     </Dropdown>
                                 </div>

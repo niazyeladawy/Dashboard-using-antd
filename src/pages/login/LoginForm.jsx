@@ -20,7 +20,6 @@ const LoginForm = () => {
 
     const navigate = useNavigate()
     const onFinish = (values) => {
-        console.log("valuesvaluesvalues", values)
 
         signInWithEmailAndPassword(auth, values.email, values.password)
             .then((userCredintials) => {

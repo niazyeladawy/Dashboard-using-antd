@@ -1,52 +1,70 @@
-import { Button, Checkbox, Form, Input, InputNumber } from 'antd';
+import { Button, Form, Input, InputNumber, Select } from 'antd';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../../components/firebase';
+import { auth, db } from '../../components/firebase';
 import routerLinks from '../../components/routerLinks';
 import './RegisterForm.scss'
 import { notification } from 'antd';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { PhoneInput } from 'react-international-phone';
+
+import 'react-international-phone/style.css';
+
 
 
 const RegisterForm = () => {
 
 
-
     const navigate = useNavigate()
-    const onFinish = (values) => {
-        console.log(values.username)
-        createUserWithEmailAndPassword(auth, values.email, values.password)
 
-            .then((userCredintials) => {
-                const user = userCredintials.user;
-                notification.success({
-                    message: 'success',
-                    description: ' successfully signed up ',
-                    duration: 4,
-                });
-                updateProfile(user, { displayName: values.username, phoneNumber:values.phoneNumber })
+    const [phone, setPhone] = useState('');
+    const onFinish = async (values) => {
+        const res = await createUserWithEmailAndPassword(auth, values.email, values.password)
+        await setDoc(doc(db, "users", res.user.uid), {
+            email: values.email,
+            password: values.password, phoneNumber: phone, username: values.username,
+            timeStamp: serverTimestamp()
+        }).then((response) => {
+            notification.success({
+                message: 'success',
+                description: ' successfully signed up ',
+                duration: 4,
+            });
+            navigate(routerLinks.loginPage)
+        }).catch((e) => {
+            console.log(e);
+        })
+        // .then((userCredintials) => {
+        //     const user = userCredintials.user;
+        //     notification.success({
+        //         message: 'success',
+        //         description: ' successfully signed up ',
+        //         duration: 4,
+        //     });
+        //     updateProfile(user, { displayName: values.username, phoneNumber:values.phoneNumber })
 
-                navigate(routerLinks.loginPage)
+        //     navigate(routerLinks.loginPage)
 
-            }).catch((e) => {
-                console.log(e.code);
-                console.log(e.message);
-                if (e.code === 'auth/email-already-in-use') {
-                    notification.error({
-                        message: 'error',
-                        description: 'Email already in use',
-                        duration: 4,
-                    });
-                }
-                else {
+        // }).catch((e) => {
+        //     console.log(e.code);
+        //     console.log(e.message);
+        //     if (e.code === 'auth/email-already-in-use') {
+        //         notification.error({
+        //             message: 'error',
+        //             description: 'Email already in use',
+        //             duration: 4,
+        //         });
+        //     }
+        //     else {
 
-                    notification.error({
-                        message: 'error',
-                        description: 'invalid',
-                        duration: 4,
-                    });
-                }
-            })
+        //         notification.error({
+        //             message: 'error',
+        //             description: 'invalid',
+        //             duration: 4,
+        //         });
+        //     }
+        // })
 
 
     };
@@ -55,20 +73,21 @@ const RegisterForm = () => {
     };
 
 
+
+
     return (
         <div className='login_form'>
+
             <Form
                 name="basic"
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                }}
-                initialValues={{
 
+                style={{
+                    width: "50%"
                 }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+
                 layout='vertical'
             >
                 <Form.Item
@@ -99,22 +118,14 @@ const RegisterForm = () => {
                 >
                     <Input size="large" placeholder='username' />
                 </Form.Item>
+                <PhoneInput
+                    initialCountry="eg"
+                    value={phone}
+                    onChange={(phone) => setPhone(phone)}
+                    style={{ marginBottom: '24px', width: "100%" }}
+                    placeholder="Enter Phone Number"
+                />
 
-                <Form.Item
-                    name="phoneNumber"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your phone number!',
-                        },
-                        {
-                            type: 'number',
-                            message: 'The input is not a valid number!',
-                        },
-                    ]}
-                >
-                    <InputNumber size="large" placeholder='Phone number' />
-                </Form.Item>
 
                 <Form.Item
                     name="password"
@@ -134,10 +145,7 @@ const RegisterForm = () => {
 
 
                 <Form.Item
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
+
                 >
                     <div className='submit_btn_wrapper'>
                         <Button size='large' type="primary" htmlType="submit">

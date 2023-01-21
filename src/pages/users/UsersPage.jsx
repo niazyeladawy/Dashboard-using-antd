@@ -26,7 +26,6 @@ const UsersPage = () => {
         fetchData()
     }, [])
 
-    console.log("datadatadata", data);
 
 
     return (

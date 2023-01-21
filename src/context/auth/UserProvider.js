@@ -5,11 +5,16 @@ const UserContext = createContext();
 
 export function UserProvider({ children }) {
     const [user, setUser] = useState(null);
+    const [firestoreUser, setFirestoreUser] = useState();
 
- 
+
 
     return (
-        <UserContext.Provider value={{user , setUser}}>
+        <UserContext.Provider value={{
+            user, setUser,
+            firestoreUser,
+            setFirestoreUser
+        }}>
             {children}
         </UserContext.Provider>
     );

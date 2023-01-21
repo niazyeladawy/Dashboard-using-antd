@@ -18,7 +18,6 @@ const AddNewUserForm = () => {
                 password, phone, username,img:imageUrl,
                 timeStamp: serverTimestamp()
             }).then((response) => {
-                console.log(response.id)
             }).catch((e) => {
                 console.log(e);
             })

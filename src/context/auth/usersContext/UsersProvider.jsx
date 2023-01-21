@@ -2,17 +2,17 @@ import React, { useState, createContext } from 'react';
 
 const INITIAL_VALUES = {
   fetchCount: 0,
-  setFetchCount: (count) => {},
+  setFetchCount: (count) => { },
   loadingUsers: false,
-  setLoadingUsers: (load) => {},
+  setLoadingUsers: (load) => { },
   allUsers: [],
-  setAllUsers: (users) => {},
+  setAllUsers: (users) => { },
   usersModalOpened: false,
-  setUsersModalOpened: (v) => {},
+  setUsersModalOpened: (v) => { },
   selectedServId: '',
-  setSelectedServId: (id) => {},
+  setSelectedServId: (id) => { },
   selectedUsers: null,
-  setSelectedUsers: (servKey) => {}
+  setSelectedUsers: (servKey) => { },
 };
 
 const UsersContext = createContext(INITIAL_VALUES);

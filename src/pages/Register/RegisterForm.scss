@@ -6,7 +6,9 @@
     
     form{
         width: 100%;
-
+        .react-international-phone-input{
+            flex-grow: 1;
+        }
         .submit_btn_wrapper{
             display: flex;
             justify-content: center;
