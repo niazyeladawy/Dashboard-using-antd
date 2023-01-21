@@ -1,4 +1,4 @@
-import { browserSessionPersistence, onAuthStateChanged, setPersistence } from 'firebase/auth';
+import { browserLocalPersistence, browserSessionPersistence, onAuthStateChanged, setPersistence } from 'firebase/auth';
 import { Suspense, useContext, useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import AuthContext from '../context/auth/AuthContext';
@@ -18,7 +18,7 @@ function App() {
   const { setUser } = useContext(UserContext);
   const [loading, setloading] = useState(false);
 
- 
+
   const location = useLocation()
   let navigate = useNavigate();
 
@@ -30,6 +30,18 @@ function App() {
       if (rememberMe === 'false') {
         setPersistence(auth, browserSessionPersistence)
           .then(() => {
+            onAuthStateChanged(auth, function (user) {
+              if (user) {
+                // User is signed in.
+                setUser(user)
+                login()
+                setloading(false)
+                navigate(location.pathname)
+              } else {
+                // No user is signed in.
+                setloading(false)
+              }
+            });
             setloading(false)
           })
           .catch((error) => {
@@ -39,45 +51,54 @@ function App() {
           });
       }
       else {
-        onAuthStateChanged(auth, function (user) {
-          if (user) {
-            // User is signed in.
-            setUser(user)
-            login()
+        setPersistence(auth, browserLocalPersistence)
+          .then(() => {
+            onAuthStateChanged(auth, function (user) {
+              if (user) {
+                // User is signed in.
+                setUser(user)
+                login()
+                setloading(false)
+                navigate(location.pathname)
+              } else {
+                // No user is signed in.
+                setloading(false)
+              }
+            });
             setloading(false)
-            navigate(location.pathname)
-          } else {
-            // No user is signed in.
-            setloading(false)
-          }
-        });
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
       }
 
     }
-    else{
+    else {
       setloading(false)
     }
 
-    
+
   }, [isAuth]);
 
 
   return (
     <div className="App">
-        {
-          loading ? <Loading/> :  !(isAuth) ? (
-            <Routes>
-              <Route path='*' element={<Navigate to={routerLinks.loginPage} />} />
-              <Route path={routerLinks.loginPage} element={<LoginPage />} />
-              <Route path={routerLinks.registerPage} element={<RegisterPage />} />
-              <Route path={routerLinks.forgetPasswordPage} element={<ForgetPasswordPage />} />
-            </Routes>
-          ) : <AppLayout>
-            <AppRoutes />
-          </AppLayout>
-        }
-       
-      
+      {
+        loading ? <Loading /> : !(isAuth) ? (
+          <Routes>
+            <Route path='*' element={<Navigate to={routerLinks.loginPage} />} />
+            <Route path={routerLinks.loginPage} element={<LoginPage />} />
+            <Route path={routerLinks.registerPage} element={<RegisterPage />} />
+            <Route path={routerLinks.forgetPasswordPage} element={<ForgetPasswordPage />} />
+          </Routes>
+        ) : <AppLayout>
+          <AppRoutes />
+        </AppLayout>
+      }
+
+
 
     </div>
   );

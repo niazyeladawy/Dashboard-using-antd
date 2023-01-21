@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { UserProvider } from '../context/auth/UserProvider'
+import Buyers from '../pages/Buysers/Buyers'
 import ChartsPage from '../pages/Charts/ChartsPage'
 import Home from '../pages/Home/Home'
 import NotFoundPage from '../pages/Not-found-page/NotFoundPage'
@@ -19,6 +20,7 @@ const AppRoutes = () => {
 
             <Route path={routerLinks.usersPage} element={<UsersPage />} />
             <Route path={routerLinks.profilePage} element={<ProdilePage />} />
+            <Route path={routerLinks.buyersPage} element={<Buyers />} />
 
         </Routes>
     )

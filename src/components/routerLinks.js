@@ -7,6 +7,7 @@ const routerLinks = {
     forgetPasswordPage: '/forget-password',
     usersPage: '/users',
     profilePage: '/profile',
+    buyersPage: '/buyers',
 }
 
 export default routerLinks;

@@ -24,6 +24,8 @@ import AuthContext from '../context/auth/AuthContext';
 import UserContext from '../context/auth/UserProvider';
 
 import { doc, getDoc } from "firebase/firestore";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faUsers } from '@fortawesome/free-solid-svg-icons';
 const { Header, Sider, Content } = Layout;
 
 const AppLayout = ({ children }) => {
@@ -72,11 +74,18 @@ const AppLayout = ({ children }) => {
             path: routerLinks.usersPage,
             label: 'Users',
         },
+        {
+            key: '5',
+            icon: <FontAwesomeIcon icon={faUsers} />,
+            path: routerLinks.buyersPage,
+            label: 'Buyers',
+        },
     ]
 
     const renderMainLinks = () => {
+
         return mainLinks.map((link) => (
-            <Menu.Item key={link.key} icon={link.icon} className={slugify(pathname) === slugify(link.path) ? 'ant-menu-item-selected' : ''} >
+            <Menu.Item size="large" key={link.key}  icon={link.icon} className={slugify(pathname) === slugify(link.path) ? 'ant-menu-item-selected' : ''} >
                 <NavLink to={link.path}>{link.label}</NavLink>
             </Menu.Item>
         ))
@@ -120,7 +129,9 @@ const AppLayout = ({ children }) => {
                             theme='light' collapsed={collapsed} style={{
                                 minHeight: '100vh'
                             }}>
-                            <div className="logo" />
+                            <div className="logo" style={{ height: '64px', display: 'flex', alignItems: "center", justifyContent: 'center' }}>
+                                <span style={{ fontSize: '1rem' }}>Dashboard</span>
+                            </div>
                             <Menu
                                 theme="light"
                                 mode="inline"
@@ -155,7 +166,6 @@ const AppLayout = ({ children }) => {
                                         }
                                     >
                                         <Button className="profile-menu-btn" type="text">
-                                            {/* {loadingSignout ? <LoadingOutlined /> : <DownOutlined />} */}
                                             <DownOutlined />
                                             <span className="user-name" style={{ marginRight: "10px" }}>{firestoreUser?.username ? firestoreUser.username : user.email}</span>
                                             <Avatar size={38} icon={<UserOutlined />} src={firestoreUser?.img} />

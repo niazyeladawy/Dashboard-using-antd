@@ -1,15 +1,18 @@
+.profile-menu-btn {
+  height: auto;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
 
-  
-  .profile-menu-btn {
-    height: auto;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-   
-  }
-  .user-name {
-    margin-bottom: 4px;
-    margin-left: 6px;
-    color: #000;
-    font-weight: bold;
-  }
+}
+
+.user-name {
+  margin-bottom: 4px;
+  margin-left: 6px;
+  color: #000;
+  font-weight: bold;
+}
+
+.trigger{
+  font-size: 20px;
+}
