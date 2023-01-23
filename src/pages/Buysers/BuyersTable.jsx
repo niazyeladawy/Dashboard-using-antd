@@ -2,48 +2,42 @@ import { Space, Table, Tag } from 'antd';
 import Column from 'antd/es/table/Column';
 import ColumnGroup from 'antd/es/table/ColumnGroup';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { db } from '../../components/firebase';
-const data = [
-    {
-        key: '1',
-        name: 'John',
-        income: 11184,
-        id: 32,
-        email: 'New York No. 1 Lake Park',
-    },
-    {
-        key: '2',
-        name: 'Jim',
-        income: 11184,
-        id: 42,
-        email: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe',
-        income: 11184,
-        id: 32,
-        email: 'Sidney No. 1 Lake Park',
-    },
-];
+import BuyersContext from '../../context/buyers/BuersProvider';
+import BuyersColumns from './buyersColumns';
+
 const BuyersTable = () => {
+
+    const { fetchCount } = useContext(BuyersContext);
 
     const [loadingData, setloadingData] = useState(false);
     const [buyersData, setbuyersData] = useState();
 
-    const getBuyers = async () => {
+     const getBuyers = async () => {
         setloadingData(true)
         let buyersData = []
         const querySnapshot = await getDocs(collection(db, "buyers"));
 
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach((doc, idx) => {
             // doc.data() is never undefined for query doc snapshots
-            buyersData.push(doc.data())
+            const data = doc.data();
+            data.id = doc.id;       
+            data.date =   data.timeStamp.toDate().toLocaleString();
+            buyersData.push(data)
+            console.log("data",data.timeStamp.toDate().toLocaleString())
 
         });
 
+        buyersData.sort(function(a, b) {
+            // convert the date fields to Date objects
+            var dateA = new Date(a.date), dateB = new Date(b.date);
+            return dateB - dateA;
+        });
+        
+
         let modifiedData = [];
+
 
         buyersData.forEach((d) => {
             modifiedData.push({
@@ -52,35 +46,25 @@ const BuyersTable = () => {
                 income: d.income,
                 id: d.id,
                 email: d.email,
+                date : d.date
             })
         })
         setloadingData(false)
         setbuyersData(modifiedData)
     }
 
-
+    
     useEffect(() => {
         getBuyers()
-    }, [])
+    }, [fetchCount])
 
     return (
-        <Table dataSource={buyersData} loading={loadingData}>
+        <Table dataSource={buyersData} loading={loadingData} columns={BuyersColumns()} pagination={{
+            position: ['bottomCenter'],
+            pageSize:10
+        }} >
 
-            <Column title="Id" dataIndex="id" key="id" />
-            <Column title="Name" dataIndex="name" key="name" />
-            <Column title="Email" dataIndex="email" key="email" />
-            <Column title="Income" dataIndex="income" key="income" />
 
-            <Column
-                title="Action"
-                key="action"
-                render={(_, record) => (
-                    <Space size="middle">
-                        <a>Invite {record.lastName}</a>
-                        <a>Delete</a>
-                    </Space>
-                )}
-            />
         </Table>
     )
 }
