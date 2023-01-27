@@ -59,13 +59,13 @@ const BuyersTable = () => {
     }, [fetchCount])
 
     return (
-        <Table dataSource={buyersData} loading={loadingData} columns={BuyersColumns()} pagination={{
+        <Table bordered dataSource={buyersData} loading={loadingData} columns={BuyersColumns()} pagination={{
             position: ['bottomCenter'],
             pageSize:10
-        }} >
+        }} />
 
 
-        </Table>
+       
     )
 }
 

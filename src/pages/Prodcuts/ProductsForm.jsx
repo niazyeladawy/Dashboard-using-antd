@@ -1,15 +1,15 @@
 import { Button, Form, Input, notification } from 'antd'
 import React, { useContext, useEffect, useState } from 'react'
-import BuyersContext from '../../context/buyers/BuersProvider';
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db } from '../../components/firebase';
 import UserContext from '../../context/auth/UserProvider';
+import ProductsContext from '../../context/products/ProductsProvider';
 
-const BuyersForm = () => {
+const ProductsForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { user } = useContext(UserContext);
 
-    const { selectedBuyer, buyersModalOpened, setBuyersModalOpened, setFetchCount, fetchCount, setSelectedBuyer } = useContext(BuyersContext);
+    const { selectedBuyer, ProductsModalOpened, setProductsModalOpened, setFetchCount, fetchCount, setSelectedBuyer } = useContext(ProductsContext);
     const [id, setId] = useState();
     const onFinish = (values) => {
         if (selectedBuyer) {
@@ -24,13 +24,13 @@ const BuyersForm = () => {
 
     const handleEditBuyer = async (id, values) => {
         setIsLoading(true)
-        const buyerRef = doc(db, "buyers", id);
+        const buyerRef = doc(db, "Products", id);
         await updateDoc(buyerRef, {
             ...values
         }).then(() => {
             setFetchCount(fetchCount + 1);
             setSelectedBuyer(null)
-            setBuyersModalOpened(false)
+            setProductsModalOpened(false)
             notification.success({
                 message: 'success',
                 description: ' successfully Updated!  ',
@@ -50,13 +50,13 @@ const BuyersForm = () => {
 
     const handleAddBuyer = async (values) => {
         setIsLoading(true)
-        await addDoc(collection(db, "buyers"), {
+        await addDoc(collection(db, "Products"), {
             ...values,
             timeStamp: serverTimestamp()
         }).then((response) => {
             setFetchCount(fetchCount + 1);
             setSelectedBuyer(null)
-            setBuyersModalOpened(false)
+            setProductsModalOpened(false)
             notification.success({
                 message: 'success',
                 description: ' successfully Added!  ',
@@ -143,4 +143,4 @@ const BuyersForm = () => {
     )
 }
 
-export default BuyersForm
+export default ProductsForm

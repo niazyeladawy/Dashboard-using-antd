@@ -1,9 +1,24 @@
-import React from 'react'
+import { Button } from 'antd';
+import React, { useContext, useEffect } from 'react'
+import ProductsContext from '../../context/products/ProductsProvider';
+
+import ProductsModal from './ProductsModal';
+import ProductsTable from './ProductsTable';
+
+
 
 const ProductsPage = () => {
+
+    const {ProductsModalOpened , setProductsModalOpened , selectedBuyer} = useContext(ProductsContext);
+    
+    console.log("first" , selectedBuyer)
     return (
-        <div className='productspage'>
-            products
+        <div>
+            <Button onClick={()=>setProductsModalOpened(true)} style={{marginBottom:"10px"}} size='large' type='primary'>Add New Product</Button>
+            <ProductsTable />
+            {
+                ProductsModalOpened && <ProductsModal/>
+            }
         </div>
     )
 }

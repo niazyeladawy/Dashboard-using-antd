@@ -26,11 +26,13 @@ import UserContext from '../context/auth/UserProvider';
 import { doc, getDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
 const { Header, Sider, Content } = Layout;
 
 const AppLayout = ({ children }) => {
 
     let { pathname } = useLocation();
+    const [routeInSidebar, setRouteInSidebar] = useState(false);
     const { logout } = useContext(AuthContext);
     const { user, firestoreUser, setFirestoreUser } = useContext(UserContext);
     const getUserImage = async () => {
@@ -44,6 +46,8 @@ const AppLayout = ({ children }) => {
     }
 
 
+
+
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
@@ -55,12 +59,6 @@ const AppLayout = ({ children }) => {
             icon: <HomeOutlined />,
             path: routerLinks.homePage,
             label: 'Home',
-        },
-        {
-            key: '2',
-            icon: <LineChartOutlined />,
-            path: routerLinks.chartsPage,
-            label: 'Charts',
         },
         {
             key: '3',
@@ -80,16 +78,40 @@ const AppLayout = ({ children }) => {
             path: routerLinks.buyersPage,
             label: 'Buyers',
         },
+        {
+            key: '6',
+            icon: <FontAwesomeIcon icon={faCalendarCheck} />,
+            path: routerLinks.calendarPage,
+            label: 'Calendar',
+        },
     ]
 
     const renderMainLinks = () => {
-
         return mainLinks.map((link) => (
-            <Menu.Item size="large" key={link.key}  icon={link.icon} className={slugify(pathname) === slugify(link.path) ? 'ant-menu-item-selected' : ''} >
+            <Menu.Item
+                size="large"
+                key={link.key}
+                icon={link.icon}
+                className={slugify(pathname) === slugify(link.path) ? 'ant-menu-item-selected' : ''}
+            >
                 <NavLink to={link.path}>{link.label}</NavLink>
             </Menu.Item>
         ))
     }
+
+    const renderMainLinksWithoutActive = () => {
+        return mainLinks.map((link) => (
+            <Menu.Item
+                size="large"
+                key={link.key}
+                icon={link.icon}
+                className=""
+            >
+                <NavLink to={link.path}>{link.label}</NavLink>
+            </Menu.Item>
+        ))
+    }
+
     const navigate = useNavigate()
 
 
@@ -120,12 +142,26 @@ const AppLayout = ({ children }) => {
     }, []);
 
 
+    useEffect(() => {
+        const isSelected = mainLinks.find(link => slugify(pathname) === slugify(link.path))
+        if (isSelected) {
+            setRouteInSidebar(true)
+        }
+        else {
+            setRouteInSidebar(false)
+        }
+
+    }, [pathname])
+
+    console.log("selected royter" , routeInSidebar);    
+
     return (
         <div className='Layout'>
             {
                 pathname === routerLinks.loginPage ? <Layout>{children}</Layout> : (
                     <Layout>
                         <Sider trigger={null} collapsible
+
                             theme='light' collapsed={collapsed} style={{
                                 minHeight: '100vh'
                             }}>
@@ -135,7 +171,10 @@ const AppLayout = ({ children }) => {
                             <Menu
                                 theme="light"
                                 mode="inline"
-                            >{renderMainLinks()}</Menu>
+                            >
+                                {routeInSidebar ? renderMainLinks() : renderMainLinksWithoutActive()}
+                                
+                                </Menu>
                         </Sider>
                         <Layout className="site-layout">
                             <Header

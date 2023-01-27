@@ -8,6 +8,7 @@ const routerLinks = {
     usersPage: '/users',
     profilePage: '/profile',
     buyersPage: '/buyers',
+    calendarPage: '/calendar',
 }
 
 export default routerLinks;

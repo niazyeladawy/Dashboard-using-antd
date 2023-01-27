@@ -5,8 +5,9 @@ import App from './components/App';
 import AuthProvider from './context/auth/AuthProvider';
 import { UserProvider } from './context/auth/UserProvider';
 import { UsersProvider } from './context/auth/usersContext/UsersProvider';
-import './index.css';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.css'
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
