@@ -25,7 +25,7 @@ const BuyersTable = () => {
             data.id = doc.id;       
             data.date =   data.timeStamp.toDate().toLocaleString();
             buyersData.push(data)
-            console.log("data",data.timeStamp.toDate().toLocaleString())
+            
 
         });
 

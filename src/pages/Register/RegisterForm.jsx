@@ -33,7 +33,7 @@ const RegisterForm = () => {
             });
             navigate(routerLinks.loginPage)
         }).catch((e) => {
-            console.log(e);
+            
         })
         // .then((userCredintials) => {
         //     const user = userCredintials.user;
@@ -47,8 +47,8 @@ const RegisterForm = () => {
         //     navigate(routerLinks.loginPage)
 
         // }).catch((e) => {
-        //     console.log(e.code);
-        //     console.log(e.message);
+        //     
+        //     
         //     if (e.code === 'auth/email-already-in-use') {
         //         notification.error({
         //             message: 'error',

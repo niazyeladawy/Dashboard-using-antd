@@ -20,7 +20,7 @@ const UsersPage = () => {
                 });
                 setData(list)
             } catch (error) {
-                console.log(error)
+                
             }
         }
         fetchData()

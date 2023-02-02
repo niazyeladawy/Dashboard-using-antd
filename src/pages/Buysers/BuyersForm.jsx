@@ -20,7 +20,7 @@ const BuyersForm = () => {
         }
 
     };
-    console.log("no", user);
+    
 
     const handleEditBuyer = async (id, values) => {
         setIsLoading(true)
@@ -38,7 +38,7 @@ const BuyersForm = () => {
             })
             setIsLoading(false)
         }).catch((e) => {
-            console.log(e)
+            
             notification.error({
                 message: 'error',
                 description: ' error happended try again later ',

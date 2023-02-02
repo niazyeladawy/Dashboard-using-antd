@@ -4,7 +4,7 @@ const ProductsContext = createContext();
 
 export const ProductsProvider = ({ children }) => {
     const [allProductsData, setAllProductsData] = useState();
-    const [selectedBuyer, setSelectedBuyer] = useState(null);
+    const [selectedProducts, setSelectedProducts] = useState(null);
     const [ProductsModalOpened, setProductsModalOpened] = useState(false);
     const [fetchCount, setFetchCount] = useState(0);
 
@@ -15,8 +15,8 @@ export const ProductsProvider = ({ children }) => {
                 setAllProductsData,
                 ProductsModalOpened,
                 setProductsModalOpened,
-                selectedBuyer,
-                setSelectedBuyer,
+                selectedProducts,
+                setSelectedProducts,
                 fetchCount,
                 setFetchCount
             }}>

@@ -9,7 +9,7 @@ const Buyers = () => {
 
     const {buyersModalOpened , setBuyersModalOpened , selectedBuyer} = useContext(BuyersContext);
     
-    console.log("first" , selectedBuyer)
+    
     return (
         <div>
             <Button onClick={()=>setBuyersModalOpened(true)} style={{marginBottom:"10px"}} size='large' type='primary'>Add New buyer</Button>

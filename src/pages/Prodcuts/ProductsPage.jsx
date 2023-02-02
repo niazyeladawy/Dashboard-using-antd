@@ -11,7 +11,7 @@ const ProductsPage = () => {
 
     const {ProductsModalOpened , setProductsModalOpened , selectedBuyer} = useContext(ProductsContext);
     
-    console.log("first" , selectedBuyer)
+    
     return (
         <div>
             <Button onClick={()=>setProductsModalOpened(true)} style={{marginBottom:"10px"}} size='large' type='primary'>Add New Product</Button>

@@ -12,11 +12,11 @@ import {
     DownOutlined,
     BoldOutlined
 } from '@ant-design/icons';
-import { Avatar, Button, Dropdown, Layout, Menu, notification, theme } from 'antd';
+import { Avatar, Button, Drawer, Dropdown, Layout, Menu, notification, theme } from 'antd';
 import routerLinks from './routerLinks';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import slugify from 'slugify';
-import './layout.css'
+import './layout.scss'
 import LoginPage from '../pages/login/LoginPage';
 import { signOut } from 'firebase/auth';
 import { auth, db } from './firebase';
@@ -30,7 +30,6 @@ import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
 const { Header, Sider, Content } = Layout;
 
 const AppLayout = ({ children }) => {
-
     let { pathname } = useLocation();
     const [routeInSidebar, setRouteInSidebar] = useState(false);
     const { logout } = useContext(AuthContext);
@@ -48,7 +47,7 @@ const AppLayout = ({ children }) => {
 
 
 
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -67,12 +66,6 @@ const AppLayout = ({ children }) => {
             label: 'Products',
         },
         {
-            key: '4',
-            icon: <UserOutlined />,
-            path: routerLinks.usersPage,
-            label: 'Users',
-        },
-        {
             key: '5',
             icon: <FontAwesomeIcon icon={faUsers} />,
             path: routerLinks.buyersPage,
@@ -84,6 +77,12 @@ const AppLayout = ({ children }) => {
             path: routerLinks.calendarPage,
             label: 'Calendar',
         },
+        {
+            key: '4',
+            icon: <UserOutlined />,
+            path: routerLinks.usersPage,
+            label: 'Users',
+        }
     ]
 
     const renderMainLinks = () => {
@@ -93,6 +92,7 @@ const AppLayout = ({ children }) => {
                 key={link.key}
                 icon={link.icon}
                 className={slugify(pathname) === slugify(link.path) ? 'ant-menu-item-selected' : ''}
+                onClick={() => setCollapsed(!collapsed)}
             >
                 <NavLink to={link.path}>{link.label}</NavLink>
             </Menu.Item>
@@ -141,7 +141,7 @@ const AppLayout = ({ children }) => {
         getUserImage()
     }, []);
 
-
+    
     useEffect(() => {
         const isSelected = mainLinks.find(link => slugify(pathname) === slugify(link.path))
         if (isSelected) {
@@ -153,43 +153,56 @@ const AppLayout = ({ children }) => {
 
     }, [pathname])
 
-    console.log("selected royter" , routeInSidebar);    
+
+
 
     return (
         <div className='Layout'>
             {
                 pathname === routerLinks.loginPage ? <Layout>{children}</Layout> : (
                     <Layout>
-                        <Sider trigger={null} collapsible
-
-                            theme='light' collapsed={collapsed} style={{
-                                minHeight: '100vh'
-                            }}>
-                            <div className="logo" style={{ height: '64px', display: 'flex', alignItems: "center", justifyContent: 'center' }}>
-                                <span style={{ fontSize: '1rem' }}>Dashboard</span>
-                            </div>
+                        <Sider 
+                            id='main_sidebar'
+                            theme='light' className={collapsed ? "collapsed" : "not_collapsed"}   >
+                            
                             <Menu
                                 theme="light"
                                 mode="inline"
                             >
                                 {routeInSidebar ? renderMainLinks() : renderMainLinksWithoutActive()}
-                                
-                                </Menu>
+
+                            </Menu>
                         </Sider>
+
                         <Layout className="site-layout">
                             <Header
+
+                                // className={collapsed ? 'w-100' : ""}
                                 style={{
                                     padding: 0,
                                     background: colorBgContainer,
                                     display: 'flex',
                                     justifyContent: "space-between",
-                                    alignItems: "center"
+                                    alignItems: "center",
+                                    position: 'sticky',
+                                    top: 0,
+                                    zIndex: 999,
+                                    width: '100%',
+                                    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px'
                                 }}
                             >
+                                <div className='d-flex justify-content-between align-items-center leaft_header_container'>
                                 {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                                    className: 'trigger',
-                                    onClick: () => setCollapsed(!collapsed),
-                                })}
+                                        className: 'trigger',
+                                        onClick: () => setCollapsed(!collapsed),
+                                    })}
+                                    <div className="logo me-2" >
+                                        <span style={{ fontSize: '1rem' }}>Dashboard</span>
+                                    </div>
+                                  
+
+                                </div>
+
                                 <div className="avatar-wrapper">
                                     <Dropdown
                                         trigger={['click']}
@@ -213,9 +226,8 @@ const AppLayout = ({ children }) => {
                                 </div>
                             </Header>
                             <Content
+                                id='main_content'
                                 style={{
-                                    margin: '24px 16px',
-                                    padding: 24,
                                     minHeight: 280,
                                     background: colorBgContainer,
                                 }}

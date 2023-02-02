@@ -1,7 +1,7 @@
-.ant-upload.ant-upload-select {
+.chane_imag_modal .ant-upload.ant-upload-select {
   border-radius: 50% !important;
 }
-.ant-upload-picture-card-wrapper {
+.chane_imag_modal .ant-upload-picture-card-wrapper {
   display: flex !important;
   justify-content: center !important;
 }

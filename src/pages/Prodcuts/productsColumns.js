@@ -9,16 +9,16 @@ import ProductsContext from '../../context/products/ProductsProvider';
 import ReactShowMoreText from 'react-show-more-text';
 
 const ProductsColumns = () => {
-    const { ProductsModalOpened, setProductsModalOpened, setSelectedBuyer, setFetchCount } = useContext(ProductsContext);
+    const { ProductsModalOpened, setProductsModalOpened, setSelectedProducts, setFetchCount } = useContext(ProductsContext);
 
     const handleEdit = (record) => {
 
-        setSelectedBuyer(record)
+        setSelectedProducts(record)
         setProductsModalOpened(true)
     }
 
     const handleDelete = async (id) => {
-        await deleteDoc(doc(db, "Products", id)).then(() => {
+        await deleteDoc(doc(db, "products", id)).then(() => {
             notification.success({
                 message: 'success',
                 description: ' successfully Deleted!  ',
@@ -133,7 +133,7 @@ const ProductsColumns = () => {
             render: (_, record) => {
                 return (
                     <>
-                        <Tooltip title="edit buyer ">
+                        <Tooltip title="edit product ">
                             <Button
                                 className="edit-btn"
                                 onClick={(key) => handleEdit(record)}
@@ -144,13 +144,13 @@ const ProductsColumns = () => {
                             />
                         </Tooltip>
                         <Popconfirm
-                            title="Are you sure you want to delete this buyer?"
+                            title="Are you sure you want to delete this product?"
                             onConfirm={() => handleDelete(record.id)}
                             okText="Yes"
                             cancelText="No"
 
                         >
-                            <Tooltip title="delete buyer ">
+                            <Tooltip title="delete product ">
                                 <Button
                                     style={{ marginLeft: '5px' }}
                                     className="delete-btn"
