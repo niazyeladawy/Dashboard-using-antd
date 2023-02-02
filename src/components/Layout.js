@@ -1,32 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Home from '../pages/Home/Home';
 import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    HomeOutlined,
-    LineChartOutlined,
-    LeftOutlined,
-    RightOutlined,
-    UserOutlined,
-    LogoutOutlined,
-    DownOutlined,
-    BoldOutlined
+    BoldOutlined, DownOutlined, HomeOutlined, LogoutOutlined, MenuFoldOutlined,
+    MenuUnfoldOutlined, UserOutlined
 } from '@ant-design/icons';
-import { Avatar, Button, Drawer, Dropdown, Layout, Menu, notification, theme } from 'antd';
-import routerLinks from './routerLinks';
+import { Avatar, Button, Dropdown, Layout, Menu, notification, theme } from 'antd';
+import { signOut } from 'firebase/auth';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import slugify from 'slugify';
-import './layout.scss'
-import LoginPage from '../pages/login/LoginPage';
-import { signOut } from 'firebase/auth';
-import { auth, db } from './firebase';
 import AuthContext from '../context/auth/AuthContext';
 import UserContext from '../context/auth/UserProvider';
+import { auth, db } from './firebase';
+import './layout.scss';
+import routerLinks from './routerLinks';
 
-import { doc, getDoc } from "firebase/firestore";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { doc, getDoc } from "firebase/firestore";
 const { Header, Sider, Content } = Layout;
 
 const AppLayout = ({ children }) => {
@@ -197,7 +187,8 @@ const AppLayout = ({ children }) => {
                                         onClick: () => setCollapsed(!collapsed),
                                     })}
                                     <div className="logo me-2" >
-                                        <span style={{ fontSize: '1rem' }}>Dashboard</span>
+                                        <Link to={routerLinks.homePage}><span style={{ fontSize: '1rem' , color:'#000'}}>Dashboard</span></Link>
+                                        
                                     </div>
                                   
 

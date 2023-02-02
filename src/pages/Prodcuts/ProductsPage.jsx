@@ -1,5 +1,5 @@
 import { Button } from 'antd';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react';
 import ProductsContext from '../../context/products/ProductsProvider';
 
 import ProductsModal from './ProductsModal';

@@ -1,8 +1,7 @@
-import { Card, Col, Row, Statistic } from 'antd'
-import React from 'react'
-import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowTrendDown, faArrowTrendUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Card, Statistic } from 'antd';
+import React from 'react';
 import CountUp from 'react-countup';
 
 const formatter = (value) => <CountUp end={value} separator="," duration={1.5} />;

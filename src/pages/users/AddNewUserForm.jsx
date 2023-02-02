@@ -1,10 +1,9 @@
-import { Button, Form, Input, InputNumber, Upload } from 'antd';
-import React, { useEffect, useState } from 'react'
-import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { auth, db, storage } from '../../components/firebase';
+import { Button, Form, Input } from 'antd';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
-import { UploadOutlined } from '@ant-design/icons';
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import React, { useEffect, useState } from 'react';
+import { auth, db, storage } from '../../components/firebase';
 
 const AddNewUserForm = () => {
     const onFinish = async ({ address, country, displayName, email,

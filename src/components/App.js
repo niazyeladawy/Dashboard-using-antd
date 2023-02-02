@@ -1,6 +1,6 @@
 import { browserLocalPersistence, browserSessionPersistence, onAuthStateChanged, setPersistence } from 'firebase/auth';
-import { Suspense, useContext, useEffect, useState } from 'react';
-import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/auth/AuthContext';
 import UserContext from '../context/auth/UserProvider';
 import ForgetPasswordPage from '../pages/forget-password/ForgetPasswordPage';
@@ -97,9 +97,6 @@ function App() {
           <AppRoutes />
         </AppLayout>
       }
-
-
-
     </div>
   );
 }

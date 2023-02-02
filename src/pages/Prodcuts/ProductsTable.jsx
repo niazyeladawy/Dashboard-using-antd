@@ -1,8 +1,6 @@
-import { Space, Table, Tag } from 'antd';
-import Column from 'antd/es/table/Column';
-import ColumnGroup from 'antd/es/table/ColumnGroup';
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import React, { useContext, useEffect, useState } from 'react'
+import { Table } from 'antd';
+import { collection, getDocs } from 'firebase/firestore';
+import React, { useContext, useEffect, useState } from 'react';
 import { db } from '../../components/firebase';
 import ProductsContext from '../../context/products/ProductsProvider';
 import ProductsColumns from './productsColumns';

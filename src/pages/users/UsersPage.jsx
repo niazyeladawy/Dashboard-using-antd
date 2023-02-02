@@ -1,9 +1,9 @@
-import { Button, Modal } from 'antd'
-import React, { useContext, useEffect, useState } from 'react'
-import UsersContext from '../../context/auth/usersContext/UsersProvider'
-import AddNewUserForm from './AddNewUserForm'
+import { Button, Modal } from 'antd';
 import { collection, getDocs } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from 'react';
 import { db } from '../../components/firebase';
+import UsersContext from '../../context/auth/usersContext/UsersProvider';
+import AddNewUserForm from './AddNewUserForm';
 
 const UsersPage = () => {
 

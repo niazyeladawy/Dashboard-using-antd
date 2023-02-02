@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
-import AuthDetails from '../../components/AuthDetails'
+import React, { useContext } from 'react';
 import BuyersChart from '../../components/Chart/BuyersChart';
 import UserContext from '../../context/auth/UserProvider';
-import './Home.scss'
+import './Home.scss';
 import StaticsChart from './StaticsChart';
 
 const Home = () => {

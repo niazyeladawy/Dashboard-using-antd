@@ -1,12 +1,12 @@
-import { Button, Form, Input, notification, Upload } from 'antd'
-import React, { useContext, useEffect, useState } from 'react'
+import { Button, Form, Input, notification, Upload } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
-import { db, productsRef, storage } from '../../components/firebase';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import React, { useContext, useEffect, useState } from 'react';
+import { db, productsRef } from '../../components/firebase';
 import UserContext from '../../context/auth/UserProvider';
 import ProductsContext from '../../context/products/ProductsProvider';
-import TextArea from 'antd/es/input/TextArea';
-import './productsForm.scss'
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import './productsForm.scss';
 
 const ProductsForm = () => {
     const [isLoading, setIsLoading] = useState(false);

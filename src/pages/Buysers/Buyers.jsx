@@ -1,8 +1,8 @@
 import { Button } from 'antd';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react';
 import BuyersContext from '../../context/buyers/BuersProvider';
 import BuersModal from './BuersModal';
-import BuyersTable from './BuyersTable'
+import BuyersTable from './BuyersTable';
 
 
 const Buyers = () => {

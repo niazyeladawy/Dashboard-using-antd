@@ -1,9 +1,9 @@
-import { Button, Form, Input, notification } from 'antd'
-import React, { useContext, useEffect, useState } from 'react'
-import BuyersContext from '../../context/buyers/BuersProvider';
+import { Button, Form, Input, notification } from 'antd';
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import React, { useContext, useEffect, useState } from 'react';
 import { db } from '../../components/firebase';
 import UserContext from '../../context/auth/UserProvider';
+import BuyersContext from '../../context/buyers/BuersProvider';
 
 const BuyersForm = () => {
     const [isLoading, setIsLoading] = useState(false);

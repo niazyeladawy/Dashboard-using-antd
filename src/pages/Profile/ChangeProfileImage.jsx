@@ -1,10 +1,10 @@
-import { Button, Form, Input, Modal, notification, Upload } from 'antd'
-import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc } from 'firebase/firestore';
+import { Button, Form, Modal, notification, Upload } from 'antd';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import { db, storage } from '../../components/firebase';
 import UserContext from '../../context/auth/UserProvider';
-import './ChangeProfileImage.css'
+import './ChangeProfileImage.css';
 
 const ChangeProfileImage = () => {
     const { user, firestoreUser, setFirestoreUser } = useContext(UserContext);

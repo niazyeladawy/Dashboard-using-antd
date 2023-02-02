@@ -1,22 +1,22 @@
-import { Col, Row } from 'antd'
 import React from 'react'
-import RegisterForm from './RegisterForm'
 import login_cover from '../../assets/imgs/login_cover.svg'
+import RegisterForm from './RegisterForm'
 
 const RegisterPage = () => {
     return (
         <div className='login_page'>
-            <Row >
-                <Col sm={24} md={12}>
+            <div className='container'>
+                <div className='row'>
+                    <div className='col-md-6'>
                     <RegisterForm />
-                </Col>
-                <Col sm={24} md={12}>
-                    <div className='login_cover_img'>
-                        <img src={login_cover} alt="" />
                     </div>
-                </Col>
-            </Row>
-
+                    <div className='d-sm-none d-md-block col-md-6 '>
+                        <div className='login_cover_img'>
+                            <img src={login_cover} alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

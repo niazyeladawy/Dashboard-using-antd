@@ -1,11 +1,9 @@
-import { async } from '@firebase/util'
-import { Button, notification, Popconfirm, Space, Tooltip } from 'antd'
-import Column from 'antd/es/table/Column'
-import React, { useContext } from 'react'
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import BuyersContext from '../../context/buyers/BuersProvider';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Button, notification, Popconfirm, Tooltip } from 'antd';
 import { deleteDoc, doc } from 'firebase/firestore';
+import React, { useContext } from 'react';
 import { db } from '../../components/firebase';
+import BuyersContext from '../../context/buyers/BuersProvider';
 
 const BuyersColumns = () => {
     const { buyersModalOpened, setBuyersModalOpened, setSelectedBuyer , setFetchCount  } = useContext(BuyersContext);

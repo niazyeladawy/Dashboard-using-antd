@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { UserProvider } from '../context/auth/UserProvider'
 import { BuyersProvider } from '../context/buyers/BuersProvider'
 import { ProductsProvider } from '../context/products/ProductsProvider'
 import Buyers from '../pages/Buysers/Buyers'

@@ -1,5 +1,5 @@
-import { Button, Form, Input, InputNumber, Select } from 'antd';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { Button, Form, Input } from 'antd';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { auth, db } from '../../components/firebase';
@@ -8,13 +8,11 @@ import './RegisterForm.scss'
 import { notification } from 'antd';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { PhoneInput } from 'react-international-phone';
-
 import 'react-international-phone/style.css';
 
 
 
 const RegisterForm = () => {
-
 
     const navigate = useNavigate()
 
@@ -31,63 +29,21 @@ const RegisterForm = () => {
                 description: ' successfully signed up ',
                 duration: 4,
             });
-            navigate(routerLinks.loginPage)
+            navigate(routerLinks.homePage)
         }).catch((e) => {
-            
+
         })
-        // .then((userCredintials) => {
-        //     const user = userCredintials.user;
-        //     notification.success({
-        //         message: 'success',
-        //         description: ' successfully signed up ',
-        //         duration: 4,
-        //     });
-        //     updateProfile(user, { displayName: values.username, phoneNumber:values.phoneNumber })
-
-        //     navigate(routerLinks.loginPage)
-
-        // }).catch((e) => {
-        //     
-        //     
-        //     if (e.code === 'auth/email-already-in-use') {
-        //         notification.error({
-        //             message: 'error',
-        //             description: 'Email already in use',
-        //             duration: 4,
-        //         });
-        //     }
-        //     else {
-
-        //         notification.error({
-        //             message: 'error',
-        //             description: 'invalid',
-        //             duration: 4,
-        //         });
-        //     }
-        // })
-
-
     };
     const onFinishFailed = (errorInfo) => {
-
     };
-
-
-
 
     return (
         <div className='login_form'>
-
             <Form
                 name="basic"
-
-                style={{
-                    width: "50%"
-                }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
-
                 layout='vertical'
             >
                 <Form.Item
@@ -105,7 +61,6 @@ const RegisterForm = () => {
                 >
                     <Input size="large" placeholder='Email' />
                 </Form.Item>
-
                 <Form.Item
                     name="username"
                     rules={[
@@ -125,8 +80,6 @@ const RegisterForm = () => {
                     style={{ marginBottom: '24px', width: "100%" }}
                     placeholder="Enter Phone Number"
                 />
-
-
                 <Form.Item
                     name="password"
                     rules={[
@@ -142,23 +95,17 @@ const RegisterForm = () => {
                 >
                     <Input.Password size="large" placeholder='Password' />
                 </Form.Item>
-
-
-                <Form.Item
-
-                >
+                <Form.Item>
                     <div className='submit_btn_wrapper'>
-                        <Button size='large' type="primary" htmlType="submit">
+                        <Button size='large' type="primary" htmlType="submit" >
                             Register
                         </Button>
                     </div>
-
-                    <div>
-                        <span>Already have account  <Link to={routerLinks.loginPage}>Login Here</Link>  </span>
-                    </div>
-
                 </Form.Item>
             </Form>
+            <div>
+                <span>Already have account  <Link to={routerLinks.loginPage}>Login Here</Link>  </span>
+            </div>
         </div>
 
     );

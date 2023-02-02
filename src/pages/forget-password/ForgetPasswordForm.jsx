@@ -1,17 +1,10 @@
-import { Button, Checkbox, Form, Input } from 'antd';
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useContext } from 'react'
+import { Button, Form, Input } from 'antd';
+import {  sendPasswordResetEmail } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../components/firebase';
 import routerLinks from '../../components/routerLinks';
-import AuthContext from '../../context/auth/AuthContext';
-import AuthProvider from '../../context/auth/AuthProvider';
 import './ForgetPasswordForm.scss'
-import { notification, Space } from 'antd';
-import UserProvider from '../../context/auth/UserProvider';
-import UserContext from '../../context/auth/UserProvider';
-
-
+import { notification } from 'antd';
 
 const ForgetPasswordForm = () => {
 
@@ -39,18 +32,10 @@ const ForgetPasswordForm = () => {
 
     };
 
-
     return (
         <div className='login_form'>
             <Form
                 name="basic"
-                wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                }}
-                initialValues={{
-
-                }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -74,24 +59,17 @@ const ForgetPasswordForm = () => {
 
 
 
-                <Form.Item
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
-                >
+                <Form.Item>
                     <div className='submit_btn_wrapper'>
                         <Button size='large' type="primary" htmlType="submit">
                             Send Code
                         </Button>
                     </div>
-
-                    <div>
-                        <span>Already have account  <Link to={routerLinks.loginPage}>Login Here</Link>  </span>
-                    </div>
-
                 </Form.Item>
             </Form>
+            <div className='text-center'>
+                <span>Remembered Password <Link to={routerLinks.loginPage}>Login Here</Link>  </span>
+            </div>
         </div>
 
     );

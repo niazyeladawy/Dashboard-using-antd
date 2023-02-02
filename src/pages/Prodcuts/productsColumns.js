@@ -1,12 +1,10 @@
-import { async } from '@firebase/util'
-import { Button, notification, Popconfirm, Space, Tooltip } from 'antd'
-import Column from 'antd/es/table/Column'
-import React, { useContext } from 'react'
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Button, notification, Popconfirm, Tooltip } from 'antd';
 import { deleteDoc, doc } from 'firebase/firestore';
+import React, { useContext } from 'react';
+import ReactShowMoreText from 'react-show-more-text';
 import { db } from '../../components/firebase';
 import ProductsContext from '../../context/products/ProductsProvider';
-import ReactShowMoreText from 'react-show-more-text';
 
 const ProductsColumns = () => {
     const { ProductsModalOpened, setProductsModalOpened, setSelectedProducts, setFetchCount } = useContext(ProductsContext);
