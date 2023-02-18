@@ -6,6 +6,7 @@ import { auth } from '../../components/firebase';
 import routerLinks from '../../components/routerLinks';
 import AuthContext from '../../context/auth/AuthContext';
 import UserContext from '../../context/auth/UserProvider';
+import GoogleLogin from './GoogleLogin';
 import './LoginForm.scss';
 
 
@@ -95,6 +96,7 @@ const LoginForm = () => {
             <div className='text-center'>
                 <span>Don't have accout yet <Link to={routerLinks.registerPage}>Register Here</Link>  </span>
             </div>
+            <GoogleLogin/>
         </div>
 
     );

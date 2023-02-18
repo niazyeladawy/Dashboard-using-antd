@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/auth/AuthContext';
 import UserContext from '../context/auth/UserProvider';
+import LanguageContext from '../context/language/LanguageProvider';
 import ForgetPasswordPage from '../pages/forget-password/ForgetPasswordPage';
 import LoginPage from '../pages/login/LoginPage';
 import RegisterPage from '../pages/Register/RegisterPage';
@@ -11,13 +12,15 @@ import { auth } from './firebase';
 import AppLayout from './Layout';
 import Loading from './Loding/Loading';
 import routerLinks from './routerLinks';
-
+import 'bootstrap/dist/css/bootstrap.css'
+import { useTranslation } from 'react-i18next';
 
 function App() {
   const { isAuth, login } = useContext(AuthContext);
   const { setUser } = useContext(UserContext);
   const [loading, setloading] = useState(false);
 
+  const { appLang } = useContext(LanguageContext);
 
   const location = useLocation()
   let navigate = useNavigate();
@@ -82,9 +85,16 @@ function App() {
 
   }, [isAuth]);
 
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    document.body.dir = i18n.dir();
+  }, [i18n.dir()]);
+
+  useEffect(() => { }, [i18n.language]);
 
   return (
-    <div className="App">
+    <div className={appLang === 'en' ? 'App english' : 'App arabic '} dir={appLang === 'en' ? 'ltr' : 'rtl'} >
       {
         loading ? <Loading /> : !(isAuth) ? (
           <Routes>

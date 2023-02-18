@@ -70,7 +70,6 @@ const ProductsForm = () => {
             })
             setIsLoading(false)
         }).catch((e) => {
-            console.log("eeee",e)
             notification.error({
                 message: 'error',
                 description: ' error happended try again later ',

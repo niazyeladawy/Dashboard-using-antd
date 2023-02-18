@@ -1,11 +1,14 @@
 import React from 'react'
-import ChangeProfileImage from './ChangeProfileImage'
+import ProfileForm from '../../components/Profile Form/ProfileForm'
+import ProfileImage from '../../components/Profile Form/ProfileForm'
 
 const ProdilePage = () => {
     return (
         <div>
             <h2>Profile Page</h2>
-            <ChangeProfileImage/>
+            <ProfileForm/>
+            
+
         </div>
     )
 }

@@ -49,7 +49,7 @@ const ProductsTable = () => {
                 tax: d.tax,
                 discount: d.discount,
                 detail_desc: d.detail_desc,
-                date: d.date,
+                date: d.timeStamp.toDate().toLocaleString(),
                 idx : idx +1
             })
         })

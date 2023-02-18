@@ -1,0 +1,56 @@
+{
+    "title": "Dashboard ",
+    "description": {
+      "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
+      "part2": "Switch language between english and german using buttons above."
+    },
+    "yes":"Yes",
+    "no":"No",
+    "sidebar":{
+      "home" : "Home",
+      "products" : "Products",
+      "buyers" : "Buyers",
+      "calendar" : "Calendar",
+      "users" : "Users"
+    },
+    "home":{
+      "nusers" : "New Users ",
+      "fusers" : "Free users",
+      "norders" : "New Orders",
+      "nbuyers" : "New Buyers",
+      "syear" : "Sales in Last Year",
+      "esyear" : "Expected Sales in Last Year"
+    },
+    "products_page":{
+      "add_btn" : "Add New Product",
+      "name" : "Name",
+      "price" : "Price",
+      "short_description" : "Short Description",
+      "image" : "Image",
+      "rate" : "Rate",
+      "long_description" : "Long Description",
+      "tax" : "Tax",
+      "discount" : "Discount",
+      "date" : "Date",
+      "actions" : "Actions",
+      "edpro":"Edit Product",
+      "delpro":"Delete Product",
+      "confirm_delete" : "Are you sure you want to delete this product?"
+    },
+    "buyers_page":{
+      "add_btn" : "Add New Product",
+      "name" : "Name",
+      "price" : "Price",
+      "short_description" : "Short Description",
+      "image" : "Image",
+      "rate" : "Rate",
+      "long_description" : "Long Description",
+      "tax" : "Tax",
+      "discount" : "Discount",
+      "date" : "Date",
+      "actions" : "Actions",
+      "edpro":"Edit Product",
+      "delpro":"Delete Product",
+      "confirm_delete" : "Are you sure you want to delete this product?"
+    }
+  }

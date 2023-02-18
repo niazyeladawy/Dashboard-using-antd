@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { BuyersProvider } from '../context/buyers/BuersProvider'
 import { ProductsProvider } from '../context/products/ProductsProvider'
 import Buyers from '../pages/Buysers/Buyers'
@@ -17,7 +17,7 @@ const AppRoutes = () => {
         <BuyersProvider>
             <ProductsProvider>
                 <Routes>
-                    <Route path='*' element={<NotFoundPage />} />
+                    <Route path='*' element={<Navigate to={routerLinks.homePage} />} />
                     <Route path={routerLinks.homePage} element={<Home />} />
                     <Route path={routerLinks.chartsPage} element={<ChartsPage />} />
                     <Route path={routerLinks.productsPage} element={<ProductsPage />} />

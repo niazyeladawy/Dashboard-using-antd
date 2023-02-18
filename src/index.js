@@ -6,8 +6,9 @@ import AuthProvider from './context/auth/AuthProvider';
 import { UserProvider } from './context/auth/UserProvider';
 import { UsersProvider } from './context/auth/usersContext/UsersProvider';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.css'
+import './i18n';
 import './index.css';
+import { LanguageProvider } from './context/language/LanguageProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,9 +16,11 @@ root.render(
     <AuthProvider>
       <UserProvider>
         <UsersProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <LanguageProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </LanguageProvider>
         </UsersProvider>
 
       </UserProvider>

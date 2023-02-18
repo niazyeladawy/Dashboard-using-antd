@@ -2,12 +2,14 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, notification, Popconfirm, Tooltip } from 'antd';
 import { deleteDoc, doc } from 'firebase/firestore';
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import ReactShowMoreText from 'react-show-more-text';
 import { db } from '../../components/firebase';
 import ProductsContext from '../../context/products/ProductsProvider';
 
 const ProductsColumns = () => {
     const { ProductsModalOpened, setProductsModalOpened, setSelectedProducts, setFetchCount } = useContext(ProductsContext);
+    const {t} = useTranslation()
 
     const handleEdit = (record) => {
 
@@ -41,14 +43,14 @@ const ProductsColumns = () => {
             fixed: "left"
         },
         {
-            title: 'name',
+            title: t('products_page.name'),
             dataIndex: 'name',
             width: "500px",
             ellipsis: true,
             fixed: "left"
         },
         {
-            title: 'price',
+            title: t('products_page.price'),
             dataIndex: 'price',
             width: "500px",
             render: (_, record) => {
@@ -57,14 +59,14 @@ const ProductsColumns = () => {
             ellipsis: true,
         },
         {
-            title: 'short description',
+            title: t('products_page.short_description'),
             dataIndex: 'short_desc',
             width: "500px",
             ellipsis: true,
         },
 
         {
-            title: 'image',
+            title: t('products_page.image'),
             dataIndex: 'img',
             width: "500px",
             render: (_, record) => {
@@ -72,13 +74,13 @@ const ProductsColumns = () => {
             }
         },
         {
-            title: 'rate',
+            title: t('products_page.rate'),
             dataIndex: 'rate',
             width: "500px",
         },
 
         {
-            title: 'long description',
+            title: t('products_page.long_description'),
             dataIndex: 'detail_desc',
             width: "30%",
             render: (_, record) => {
@@ -100,7 +102,7 @@ const ProductsColumns = () => {
         },
 
         {
-            title: 'tax',
+            title: t('products_page.tax'),
             dataIndex: 'tax',
             width: "500px",
             render: (_, record) => {
@@ -109,7 +111,7 @@ const ProductsColumns = () => {
             , ellipsis: true,
         },
         {
-            title: 'discount',
+            title:  t('products_page.discount'),
             dataIndex: 'discount',
             width: "500px",
             render: (_, record) => {
@@ -118,20 +120,20 @@ const ProductsColumns = () => {
             , ellipsis: true,
         },
         {
-            title: 'date',
+            title: t('products_page.date'),
             dataIndex: 'date',
             width: "500px",
             ellipsis: true,
         },
 
         {
-            title: 'actions',
+            title:t('products_page.actions'),
             dataIndex: 'actions',
             width: "500px",
             render: (_, record) => {
                 return (
                     <>
-                        <Tooltip title="edit product ">
+                        <Tooltip title={t('products_page.edpro')}>
                             <Button
                                 className="edit-btn"
                                 onClick={(key) => handleEdit(record)}
@@ -142,15 +144,15 @@ const ProductsColumns = () => {
                             />
                         </Tooltip>
                         <Popconfirm
-                            title="Are you sure you want to delete this product?"
+                            title={t('products_page.confirm_delete')}
                             onConfirm={() => handleDelete(record.id)}
-                            okText="Yes"
-                            cancelText="No"
+                            okText={t('yes')}
+                            cancelText={t('no')}
 
                         >
-                            <Tooltip title="delete product ">
+                            <Tooltip title={t('products_page.delpro')}>
                                 <Button
-                                    style={{ marginLeft: '5px' }}
+                                    style={{ margin: '0 8px' }}
                                     className="delete-btn"
                                     size="large"
                                     type="dashed"

@@ -2,11 +2,14 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, notification, Popconfirm, Tooltip } from 'antd';
 import { deleteDoc, doc } from 'firebase/firestore';
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { db } from '../../components/firebase';
 import BuyersContext from '../../context/buyers/BuersProvider';
 
 const BuyersColumns = () => {
     const { buyersModalOpened, setBuyersModalOpened, setSelectedBuyer , setFetchCount  } = useContext(BuyersContext);
+
+    const {t} = useTranslation()
 
     const handleEdit = (record) => {
        

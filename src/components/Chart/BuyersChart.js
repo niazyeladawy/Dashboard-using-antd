@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -75,11 +76,16 @@ const data = [
   },
 ];
 const BuyersChart = () => {
+
+  const {t} = useTranslation()
+
   return (
     <div>
-      <h2 className='text-center my-2'>Sales in Last Year</h2>
-      <ResponsiveContainer width="100%" height={200}>
+      <h2 className='text-center my-2'>{t('home.syear')}</h2>
+      <ResponsiveContainer   style={{ direction: 'rtl' }} width="100%" height={200}>
         <AreaChart
+            
+
           width={500}
           height={200}
           data={data}
@@ -97,7 +103,7 @@ const BuyersChart = () => {
           <Area type="monotone" dataKey="sales" stroke="#3f8600" fill="#3f8600" />
         </AreaChart>
       </ResponsiveContainer>
-      <h2 className='text-center mt-4'>Expected Sales in Last Year</h2>
+      <h2 className='text-center mt-4'>{t('home.esyear')}</h2>
       <ResponsiveContainer width="100%" height={200}>
         <AreaChart
           width={500}

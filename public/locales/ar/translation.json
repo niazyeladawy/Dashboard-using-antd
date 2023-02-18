@@ -1,0 +1,40 @@
+{
+    "title": "لوحة التحكم ",
+    "description": {
+      "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
+      "part2": "Switch language between english and german using buttons above."
+    },
+    "yes":"نعم",
+    "no":"لا",
+    "sidebar":{
+      "home" : "الصفحة الرئيسية",
+      "products" : "المنتجات",
+      "buyers" : "التجار",
+      "calendar" : "التقويم",
+      "users" : "المستخدمين"
+    },
+    "home":{
+      "nusers" : " المستخدمين الجدد ",
+      "fusers" : "المستخدمين المجانيين",
+      "norders" : "الطلبات الجديدة",
+      "nbuyers" : "التجار الجدد",
+      "syear" : "المبيعات في  السنه الماضية",
+      "esyear" : "المبيعات المتوقعة في السنة الماضية"
+    },
+    "products_page":{
+      "add_btn" : "اضافة منتج جديد",
+      "name" : "الاسم",
+      "price" : "السعر",
+      "short_description" : " الوصف القصير",
+      "image" : "الصورة",
+      "rate" : "التقييم",
+      "long_description" : " الوصف الكبير",
+      "tax" : "الضرائب",
+      "discount" : "الخصومات",
+      "date" : "التاريخ",
+      "actions" : "الاوامر",
+      "edpro":" تعديل المنتج",
+      "delpro":"حذف المنتج ",
+      "confirm_delete" : "هل انت متأكد من حذف المنتج؟"
+    }
+  }

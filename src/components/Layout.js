@@ -2,7 +2,7 @@ import {
     BoldOutlined, DownOutlined, HomeOutlined, LogoutOutlined, MenuFoldOutlined,
     MenuUnfoldOutlined, UserOutlined
 } from '@ant-design/icons';
-import { Avatar, Button, Dropdown, Layout, Menu, notification, theme } from 'antd';
+import { Avatar, Button, Dropdown, Layout, Menu, notification, Select, theme } from 'antd';
 import { signOut } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -12,18 +12,29 @@ import UserContext from '../context/auth/UserProvider';
 import { auth, db } from './firebase';
 import './layout.scss';
 import routerLinks from './routerLinks';
+import { FiUsers } from 'react-icons/fi';
+import { SlCalender } from 'react-icons/sl';
+import { MdProductionQuantityLimits } from 'react-icons/md';
 
-import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { doc, getDoc } from "firebase/firestore";
+import LanguageContext from '../context/language/LanguageProvider';
+import { changeLanguage } from 'i18next';
+import { useTranslation } from 'react-i18next';
 const { Header, Sider, Content } = Layout;
 
+
+
 const AppLayout = ({ children }) => {
+
     let { pathname } = useLocation();
+
     const [routeInSidebar, setRouteInSidebar] = useState(false);
+
     const { logout } = useContext(AuthContext);
     const { user, firestoreUser, setFirestoreUser } = useContext(UserContext);
+    const { appLang, setAppLang } = useContext(LanguageContext);
+    const { t } = useTranslation();
+
     const getUserImage = async () => {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
@@ -33,9 +44,6 @@ const AppLayout = ({ children }) => {
             // doc.data() will be undefined in this case
         }
     }
-
-
-
 
     const [collapsed, setCollapsed] = useState(true);
     const {
@@ -47,31 +55,31 @@ const AppLayout = ({ children }) => {
             key: '1',
             icon: <HomeOutlined />,
             path: routerLinks.homePage,
-            label: 'Home',
+            label: t('sidebar.home'),
         },
         {
             key: '3',
-            icon: <BoldOutlined />,
+            icon: <MdProductionQuantityLimits/>,
             path: routerLinks.productsPage,
-            label: 'Products',
+            label: t('sidebar.products'),
         },
         {
             key: '5',
-            icon: <FontAwesomeIcon icon={faUsers} />,
+            icon: <FiUsers/>,
             path: routerLinks.buyersPage,
-            label: 'Buyers',
+            label: t('sidebar.buyers'),
         },
         {
             key: '6',
-            icon: <FontAwesomeIcon icon={faCalendarCheck} />,
+            icon: <SlCalender/>,
             path: routerLinks.calendarPage,
-            label: 'Calendar',
+            label: t('sidebar.calendar'),
         },
         {
             key: '4',
             icon: <UserOutlined />,
             path: routerLinks.usersPage,
-            label: 'Users',
+            label: t('sidebar.users'),
         }
     ]
 
@@ -104,10 +112,8 @@ const AppLayout = ({ children }) => {
 
     const navigate = useNavigate()
 
-
     const handleSignout = () => {
         signOut(auth).then(
-
             () => {
                 notification.success({
                     message: 'success',
@@ -131,7 +137,6 @@ const AppLayout = ({ children }) => {
         getUserImage()
     }, []);
 
-    
     useEffect(() => {
         const isSelected = mainLinks.find(link => slugify(pathname) === slugify(link.path))
         if (isSelected) {
@@ -143,30 +148,31 @@ const AppLayout = ({ children }) => {
 
     }, [pathname])
 
-
-
+    const handleLanguageChange = (value) => {
+        setAppLang(value)
+        localStorage.setItem('lang', value)
+        changeLanguage(value)
+    };
 
     return (
         <div className='Layout'>
             {
                 pathname === routerLinks.loginPage ? <Layout>{children}</Layout> : (
                     <Layout>
-                        <Sider 
+                        <Sider
                             id='main_sidebar'
                             theme='light' className={collapsed ? "collapsed" : "not_collapsed"}   >
-                            
+
                             <Menu
                                 theme="light"
                                 mode="inline"
                             >
                                 {routeInSidebar ? renderMainLinks() : renderMainLinksWithoutActive()}
-
                             </Menu>
                         </Sider>
 
                         <Layout className="site-layout">
                             <Header
-
                                 // className={collapsed ? 'w-100' : ""}
                                 style={{
                                     padding: 0,
@@ -176,50 +182,66 @@ const AppLayout = ({ children }) => {
                                     alignItems: "center",
                                     position: 'sticky',
                                     top: 0,
-                                    zIndex: 999,
+                                    zIndex: 920,
                                     width: '100%',
                                     boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px'
                                 }}
                             >
                                 <div className='d-flex justify-content-between align-items-center leaft_header_container'>
-                                {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                                    {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                                         className: 'trigger',
                                         onClick: () => setCollapsed(!collapsed),
                                     })}
                                     <div className="logo me-2" >
-                                        <Link to={routerLinks.homePage}><span style={{ fontSize: '1rem' , color:'#000'}}>Dashboard</span></Link>
-                                        
+                                        <Link to={routerLinks.homePage}><span style={{ fontSize: '1rem', color: '#000' }}>{t('title')}</span></Link>
                                     </div>
-                                  
-
                                 </div>
 
-                                <div className="avatar-wrapper">
-                                    <Dropdown
-                                        trigger={['click']}
-                                        overlay={
-                                            <Menu>
-                                                <Menu.Item key='1' icon={<UserOutlined />}>
-                                                    <Link to={routerLinks.profilePage}>Profile</Link>
-                                                </Menu.Item>
-                                                <Menu.Item key='2' icon={<LogoutOutlined />}>
-                                                    <a onClick={handleSignout}>SignOut</a>
-                                                </Menu.Item>
-                                            </Menu>
-                                        }
-                                    >
-                                        <Button className="profile-menu-btn" type="text">
-                                            <DownOutlined />
-                                            <span className="user-name" style={{ marginRight: "10px" }}>{firestoreUser?.username ? firestoreUser.username : user.email}</span>
-                                            <Avatar size={38} icon={<UserOutlined />} src={firestoreUser?.img} />
-                                        </Button>
-                                    </Dropdown>
+                                <div className='d-flex align-items-center'>
+                                    <Select
+                                        className='languageSelector'
+                                        defaultValue={appLang}
+                                        onChange={handleLanguageChange}
+                                        style={{
+                                            width: 100,
+                                        }}
+                                        options={[
+                                            {
+                                                value: 'en',
+                                                label: 'English',
+                                            },
+                                            {
+                                                value: 'ar',
+                                                label: 'عربي',
+                                            },
+                                        ]}
+                                    />
+                                    <div className="avatar-wrapper ms-3">
+                                        <Dropdown
+                                            trigger={['click']}
+                                            overlay={
+                                                <Menu>
+                                                    <Menu.Item key='1' icon={<UserOutlined />}>
+                                                        <Link to={routerLinks.profilePage}>Profile</Link>
+                                                    </Menu.Item>
+                                                    <Menu.Item key='2' icon={<LogoutOutlined />}>
+                                                        <a onClick={handleSignout}>SignOut</a>
+                                                    </Menu.Item>
+                                                </Menu>
+                                            }
+                                        >
+                                            <Button className="profile-menu-btn" type="text">
+                                                <DownOutlined />
+                                                <span className="user-name" style={{ marginRight: "10px" }}>{firestoreUser?.username ? firestoreUser.username : user.email}</span>
+                                                <Avatar size={38} icon={<UserOutlined />} src={firestoreUser?.img} />
+                                            </Button>
+                                        </Dropdown>
+                                    </div>
                                 </div>
                             </Header>
                             <Content
                                 id='main_content'
                                 style={{
-                                    minHeight: 280,
                                     background: colorBgContainer,
                                 }}
                             >

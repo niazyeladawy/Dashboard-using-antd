@@ -37,8 +37,7 @@
   top: 64px;
   position: fixed;
   z-index: 929;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  box-shadow: 9px 12px 15px -3px rgba(0, 0, 0, 0.1);
   -webkit-transition: left 0.8s ease-in-out;
   -moz-transition: left 0.8s ease-in-out;
   -ms-transition: left 0.8s ease-in-out;
@@ -49,8 +48,9 @@
   margin: 24px 16px;
   margin-left: 220px;
   padding: 24px;
-  min-height: 100%;
+  min-height: calc(100vh - 112px);
 }
+
 .trigger {
   display: none;
 }
@@ -76,6 +76,13 @@
     width: auto;
   }
   .leaft_header_container {
+    margin-left: 16px;
+  }
+}
+
+.arabic {
+  #main_content {
+    margin-right: 220px;
     margin-left: 16px;
   }
 }
