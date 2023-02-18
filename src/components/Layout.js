@@ -33,7 +33,9 @@ const AppLayout = ({ children }) => {
     const { logout } = useContext(AuthContext);
     const { user, firestoreUser, setFirestoreUser } = useContext(UserContext);
     const { appLang, setAppLang } = useContext(LanguageContext);
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    
 
     const getUserImage = async () => {
         const docRef = doc(db, "users", user.uid);
@@ -59,19 +61,19 @@ const AppLayout = ({ children }) => {
         },
         {
             key: '3',
-            icon: <MdProductionQuantityLimits/>,
+            icon: <MdProductionQuantityLimits />,
             path: routerLinks.productsPage,
             label: t('sidebar.products'),
         },
         {
             key: '5',
-            icon: <FiUsers/>,
+            icon: <FiUsers />,
             path: routerLinks.buyersPage,
             label: t('sidebar.buyers'),
         },
         {
             key: '6',
-            icon: <SlCalender/>,
+            icon: <SlCalender />,
             path: routerLinks.calendarPage,
             label: t('sidebar.calendar'),
         },
@@ -216,8 +218,9 @@ const AppLayout = ({ children }) => {
                                             },
                                         ]}
                                     />
-                                    <div className="avatar-wrapper ms-3">
+                                    <div className="avatar-wrapper " style={i18n.dir() === "ltr" ? {marginLeft:"15px"} : {marginRight:"15px"}}>
                                         <Dropdown
+                                            className='avatar-dropdown'
                                             trigger={['click']}
                                             overlay={
                                                 <Menu>

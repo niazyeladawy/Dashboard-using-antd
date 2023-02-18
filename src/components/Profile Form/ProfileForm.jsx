@@ -2,6 +2,7 @@ import { Button, Form, Input, InputNumber, notification, Progress, Spin, Upload 
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import { PhoneInput } from 'react-international-phone';
 import UserContext from '../../context/auth/UserProvider';
 import { db, storage } from '../firebase';
@@ -9,6 +10,9 @@ import { db, storage } from '../firebase';
 import './profileform.scss'
 
 const ProfileForm = () => {
+
+    const {t} = useTranslation()
+
     const { user, firestoreUser, setFirestoreUser } = useContext(UserContext);
     const [per, setPerc] = useState(null);
     const [userFirestoreData, setuserFirestoreData] = useState();
@@ -172,15 +176,15 @@ const ProfileForm = () => {
                         </Upload>
                         {file && <Progress percent={per ? per : ""} />}
 
-                        <Form.Item name="username" label={<span style={{ fontSize: '18px' }}>Username</span>}>
+                        <Form.Item name="username" label={<span style={{ fontSize: '18px' }}>{t('user.username')}</span>}>
                             <Input type='text' className='w-100' size='large' />
                         </Form.Item>
 
-                        <Form.Item name="email" label={<span style={{ fontSize: '18px' }}>Email</span>}>
+                        <Form.Item name="email" label={<span style={{ fontSize: '18px' }}>{t('user.email')}</span>}>
                             <Input type='text' className='w-100' size='large' />
                         </Form.Item>
 
-                        <Form.Item name="age" label={<span style={{ fontSize: '18px' }}>Age</span>}>
+                        <Form.Item name="age" label={<span style={{ fontSize: '18px' }}>{t('user.age')}</span>}>
                             <InputNumber className='w-100' size='large' min={1} max={120} />
                         </Form.Item>
 
@@ -190,7 +194,7 @@ const ProfileForm = () => {
                             value={phone}
                             onChange={(phone) => setPhone(phone)}
                             style={{ marginBottom: '24px', width: "100%" }}
-                            placeholder="Enter Phone Number"
+                            placeholder={t('user.phoneNumber')}
                         />
 
                         <Form.Item >

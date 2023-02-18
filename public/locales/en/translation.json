@@ -52,5 +52,12 @@
       "edpro":"Edit Product",
       "delpro":"Delete Product",
       "confirm_delete" : "Are you sure you want to delete this product?"
+    },
+    "user":{
+      "username":"Username",
+      "email":"Email",
+      "age":"Age",
+      "phoneNumber":"Phonenumber",
+      "password":"Password"
     }
   }
