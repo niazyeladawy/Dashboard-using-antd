@@ -37,35 +37,35 @@ const BuyersColumns = () => {
 
     return [
         {
-            title: 'id',
+            title: t('buyers_page.id'),
             dataIndex: 'id',
 
         },
         {
-            title: 'name',
+            title: t('buyers_page.name'),
             dataIndex: 'name',
         },
 
         {
-            title: 'email',
+            title: t('buyers_page.email'),
             dataIndex: 'email',
         },
 
         {
-            title: 'income',
+            title: t('buyers_page.income'),
             dataIndex: 'income',
         },
         {
-            title: 'date',
+            title: t('buyers_page.date'),
             dataIndex: 'date',
         },
         {
-            title: 'actions',
+            title: t('buyers_page.actions'),
             dataIndex: 'actions',
             render: (_, record) => {
                 return (
                     <>
-                        <Tooltip title="edit buyer ">
+                        <Tooltip title={t('buyers_page.edbuy')}>
                             <Button
                                 className="edit-btn"
                                 onClick={(key) => handleEdit(record)}
@@ -76,13 +76,13 @@ const BuyersColumns = () => {
                             />
                         </Tooltip>
                         <Popconfirm
-                            title="Are you sure you want to delete this buyer?"
+                            title={t('buyers_page.confirm_delete')}
                             onConfirm={() => handleDelete(record.id)}
-                            okText="Yes"
-                            cancelText="No"
+                            okText={t('yes')}
+                            cancelText={t('no')}
 
                         >
-                            <Tooltip title="delete buyer ">
+                            <Tooltip title={t('buyers_page.delbuy')}>
                                 <Button
                                     style={{ marginLeft: '5px' }}
                                     className="delete-btn"

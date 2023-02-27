@@ -1,6 +1,7 @@
 import { Button, Form, Input, notification } from 'antd'
 import { updatePassword } from 'firebase/auth';
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import { auth } from '../../components/firebase';
 
 const UpdatePassword = ({setModalOpened}) => {
@@ -8,6 +9,7 @@ const UpdatePassword = ({setModalOpened}) => {
     const user = auth.currentUser;
     const [loading, setLoading] = useState(false);
 
+    const {t} = useTranslation()
 
 
     const hadnleSubmit = async (values) => {
@@ -43,7 +45,7 @@ const UpdatePassword = ({setModalOpened}) => {
                     },
                 ]}
             >
-                <Input.Password size="large" placeholder='New Password' />
+                <Input.Password size="large" placeholder={t('user.newPassword')} />
             </Form.Item>
             <Form.Item
                 name="confirmnewpassword"
@@ -64,12 +66,13 @@ const UpdatePassword = ({setModalOpened}) => {
                     }),
                 ]}
             >
-                <Input.Password size="large" placeholder='Confirm New Password' />
+                <Input.Password size="large" placeholder={t('user.confirmnewPassword')} />
             </Form.Item>
             <Form.Item >
                 <div className='submit_btn_wrapper'>
                     <Button loading={loading} size='large' type="primary" htmlType="submit">
-                        Update
+                        
+                        {t('submit')}
                     </Button>
                 </div>
             </Form.Item>

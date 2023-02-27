@@ -5,3 +5,17 @@
   display: flex !important;
   justify-content: center !important;
 }
+body[dir="rtl"]
+  .react-international-phone-input-container
+  .react-international-phone-country-selector-button {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
+body[dir="rtl"] .react-international-phone-input-container .react-international-phone-input {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}

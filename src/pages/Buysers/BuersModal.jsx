@@ -1,5 +1,6 @@
 import { Modal } from 'antd'
 import React, { useContext } from 'react'
+import { useTranslation } from 'react-i18next';
 import BuyersContext from '../../context/buyers/BuersProvider';
 import BuyersForm from './BuyersForm';
 
@@ -15,8 +16,11 @@ const BuersModal = () => {
         setSelectedBuyer(null)
     };
 
+    const {t} = useTranslation()
+
+
     return (
-        <Modal title={selectedBuyer ? "Edit Buyer" :  "Add Buyer"} footer={false} open={buyersModalOpened} onOk={handleOk} onCancel={handleCancel}>
+        <Modal title={selectedBuyer ? t('buyers_page.edbuy') :  t('buyers_page.add_btn')} footer={false} open={buyersModalOpened} onOk={handleOk} onCancel={handleCancel}>
             <BuyersForm/>
         </Modal>
     )

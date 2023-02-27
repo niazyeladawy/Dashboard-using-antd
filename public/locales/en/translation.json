@@ -6,6 +6,8 @@
     },
     "yes":"Yes",
     "no":"No",
+    "submit":"Submit",
+    "upload":"Upload",
     "sidebar":{
       "home" : "Home",
       "products" : "Products",
@@ -38,26 +40,27 @@
       "confirm_delete" : "Are you sure you want to delete this product?"
     },
     "buyers_page":{
-      "add_btn" : "Add New Product",
+      "id":"Id" ,
+      "add_btn" : "Add New Buyer",
       "name" : "Name",
-      "price" : "Price",
-      "short_description" : "Short Description",
-      "image" : "Image",
-      "rate" : "Rate",
-      "long_description" : "Long Description",
-      "tax" : "Tax",
-      "discount" : "Discount",
+      "email" : "Email",
+      "income" : "Income",
       "date" : "Date",
       "actions" : "Actions",
-      "edpro":"Edit Product",
-      "delpro":"Delete Product",
-      "confirm_delete" : "Are you sure you want to delete this product?"
+      "edbuy":"Edit Buyer",
+      "delbuy":"Delete Buyer",
+      "confirm_delete" : "Are you sure you want to delete this Buyer?"
     },
     "user":{
       "username":"Username",
       "email":"Email",
       "age":"Age",
       "phoneNumber":"Phonenumber",
-      "password":"Password"
+      "password":"Password",
+      "profile":"Profile",
+      "logout":"Logout ",
+      "updatePassword":"Update Password",
+      "newPassword":"New Password",
+      "confirmnewPassword":"Confirm New Password"
     }
   }

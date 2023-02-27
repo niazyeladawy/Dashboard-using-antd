@@ -22,7 +22,7 @@ const AppRoutes = () => {
                     <Route path={routerLinks.chartsPage} element={<ChartsPage />} />
                     <Route path={routerLinks.productsPage} element={<ProductsPage />} />
 
-                    <Route path={routerLinks.usersPage} element={<UsersPage />} />
+                    {/* <Route path={routerLinks.usersPage} element={<UsersPage />} /> */}
                     <Route path={routerLinks.profilePage} element={<ProdilePage />} />
                     <Route path={routerLinks.calendarPage} element={<CalendarPage />} />
 

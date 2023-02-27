@@ -1,8 +1,9 @@
-import { Button, Form, Input, notification, Upload } from 'antd';
+import { Button, Form, Input, InputNumber, notification, Upload } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { db, productsRef } from '../../components/firebase';
 import UserContext from '../../context/auth/UserProvider';
 import ProductsContext from '../../context/products/ProductsProvider';
@@ -23,15 +24,15 @@ const ProductsForm = () => {
         }
 
     };
-    
+
 
     const handleEditProducts = async (id, values) => {
         setIsLoading(true)
         const ProductsRef = doc(db, "products", id);
         await updateDoc(ProductsRef, {
             ...values,
-            img:imageUrl,
-            updatedAt:serverTimestamp()
+            img: imageUrl,
+            updatedAt: serverTimestamp()
         }).then(() => {
             setFetchCount(fetchCount + 1);
             setSelectedProducts(null)
@@ -43,7 +44,7 @@ const ProductsForm = () => {
             })
             setIsLoading(false)
         }).catch((e) => {
-            
+
             notification.error({
                 message: 'error',
                 description: ' error happended try again later ',
@@ -55,9 +56,9 @@ const ProductsForm = () => {
 
     const handleAddProducts = async (values) => {
         setIsLoading(true)
-         await addDoc(collection(db, "products"), {
+        await addDoc(collection(db, "products"), {
             ...values,
-            img:imageUrl,
+            img: imageUrl,
             timeStamp: serverTimestamp(),
         }).then((response) => {
             setFetchCount(fetchCount + 1);
@@ -77,10 +78,6 @@ const ProductsForm = () => {
             })
             setIsLoading(false)
         })
-
-        
-
-
     }
 
     const [form] = Form.useForm();
@@ -99,11 +96,6 @@ const ProductsForm = () => {
 
     useEffect(() => {
         const uploadFile = () => {
-            // const name = new Date().getTime() + file.name;
-            // const folderRef = ref(storage, 'products/${name}');
-            // const imageRef = folderRef.reference().child(name);
-            // const uploadTask = uploadBytesResumable(imageRef, file);
-
             const name = new Date().getTime() + file.name;
             const storageRef = ref(productsRef, name);
             const uploadTask = uploadBytesResumable(storageRef, file);
@@ -111,15 +103,15 @@ const ProductsForm = () => {
             uploadTask.on('state_changed',
                 (snapshot) => {
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    
+
                     setPerc(progress);
 
                     switch (snapshot.state) {
                         case 'paused':
-                            
+
                             break;
                         case 'running':
-                            
+
                             break;
                     }
                 },
@@ -130,7 +122,7 @@ const ProductsForm = () => {
                     // Handle successful uploads on complete
                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        
+
                         setImageUrl(downloadURL)
                     });
                 }
@@ -140,7 +132,8 @@ const ProductsForm = () => {
 
         file && uploadFile()
     }, [file]);
-
+    const {t} = useTranslation()
+    
     return (
         <Form
             className='ProductsForm'
@@ -171,13 +164,13 @@ const ProductsForm = () => {
                             margin: '0 auto',
                         }}
                     />
-                ) : "upload"
+                ) : t('upload')
                 }
             </Upload>
 
             <Form.Item
                 name='name'
-                label="Name"
+                label={t('products_page.name')}
                 rules={[
                     {
                         required: true,
@@ -189,7 +182,7 @@ const ProductsForm = () => {
 
             <Form.Item
                 name='price'
-                label="Price"
+                label={t('products_page.price')}
                 rules={[
                     {
                         required: true,
@@ -201,7 +194,7 @@ const ProductsForm = () => {
             </Form.Item>
             <Form.Item
                 name='short_desc'
-                label="Short Descrition"
+                label={t('products_page.short_description')}
                 rules={[
                     {
                         required: true,
@@ -212,7 +205,7 @@ const ProductsForm = () => {
             </Form.Item>
             <Form.Item
                 name='detail_desc'
-                label="Long Descrition"
+                label={t('products_page.long_description')}
                 rules={[
                     {
                         required: true,
@@ -223,7 +216,8 @@ const ProductsForm = () => {
             </Form.Item>
             <Form.Item
                 name='rate'
-                label="Rate"
+                label={t('products_page.rate')}
+                
                 rules={[
                     {
                         required: true,
@@ -231,11 +225,11 @@ const ProductsForm = () => {
                 ]}
             >
 
-                <Input size='large' type='number' />
+                <InputNumber min="0" max='5'  size='large' className='w-100' />
             </Form.Item>
             <Form.Item
                 name='tax'
-                label="Tax"
+                label={t('products_page.tax')}
                 rules={[
                     {
                         required: true,
@@ -243,11 +237,11 @@ const ProductsForm = () => {
                 ]}
             >
 
-                <Input size='large' type='number' />
+                <InputNumber min="0" max='100'  size='large' className='w-100' />
             </Form.Item>
             <Form.Item
                 name='discount'
-                label="Discount"
+                label={t('products_page.discount')}
                 rules={[
                     {
                         required: true,
@@ -255,11 +249,11 @@ const ProductsForm = () => {
                 ]}
             >
 
-                <Input size='large' type='number' />
+            <InputNumber min="0" max='100'  size='large' className='w-100' />
             </Form.Item>
             <Form.Item style={{ display: "flex", justifyContent: "center" }}  >
-                <Button size='large' loading={isLoading} disabled={(per !== null && per < 100) || isLoading}  type="primary" htmlType="submit">
-                    Submit
+                <Button size='large' loading={isLoading} disabled={(per !== null && per < 100) || isLoading} type="primary" htmlType="submit">
+                    {t('submit')}
                 </Button>
             </Form.Item>
         </Form>

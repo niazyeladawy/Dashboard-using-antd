@@ -1,6 +1,7 @@
 import { Button, Form, Input, notification } from 'antd';
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import React, { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { db } from '../../components/firebase';
 import UserContext from '../../context/auth/UserProvider';
 import BuyersContext from '../../context/buyers/BuersProvider';
@@ -8,6 +9,8 @@ import BuyersContext from '../../context/buyers/BuersProvider';
 const BuyersForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { user } = useContext(UserContext);
+ 
+    const {t} = useTranslation();
 
     const { selectedBuyer, buyersModalOpened, setBuyersModalOpened, setFetchCount, fetchCount, setSelectedBuyer } = useContext(BuyersContext);
     const [id, setId] = useState();
@@ -100,7 +103,7 @@ const BuyersForm = () => {
         >
             <Form.Item
                 name='name'
-                label="Name"
+                label={t('buyers_page.name')}
                 rules={[
                     {
                         required: true,
@@ -111,7 +114,7 @@ const BuyersForm = () => {
             </Form.Item>
             <Form.Item
                 name='email'
-                label="Email"
+                label={t('buyers_page.email')}
                 rules={[
                     {
                         required: true,
@@ -125,7 +128,7 @@ const BuyersForm = () => {
             </Form.Item>
             <Form.Item
                 name='income'
-                label="Income"
+                label={t('buyers_page.income')}
                 rules={[
                     {
                         required: true,
@@ -136,7 +139,7 @@ const BuyersForm = () => {
             </Form.Item>
             <Form.Item style={{display:"flex" , justifyContent:"center"}}  >
                 <Button size='large' loading={isLoading} disabled={isLoading} type="primary" htmlType="submit">
-                    Submit
+                   { t('submit')}
                 </Button>
             </Form.Item>
         </Form>

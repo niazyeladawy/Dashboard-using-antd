@@ -200,7 +200,7 @@ const ProfileForm = () => {
                         <Form.Item >
                             <div className='submit_btn_wrapper ' style={{ display: 'flex', justifyContent: "center", marginTop: "20px" }}>
                                 <Button size='large' disabled={per !== null && per < 100} type="primary" htmlType="submit">
-                                    Submit
+                                    {t('submit')}
                                 </Button>
                             </div>
 

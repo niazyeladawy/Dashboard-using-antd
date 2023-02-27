@@ -77,12 +77,12 @@ const AppLayout = ({ children }) => {
             path: routerLinks.calendarPage,
             label: t('sidebar.calendar'),
         },
-        {
-            key: '4',
-            icon: <UserOutlined />,
-            path: routerLinks.usersPage,
-            label: t('sidebar.users'),
-        }
+        // {
+        //     key: '4',
+        //     icon: <UserOutlined />,
+        //     path: routerLinks.usersPage,
+        //     label: t('sidebar.users'),
+        // }
     ]
 
     const renderMainLinks = () => {
@@ -225,10 +225,10 @@ const AppLayout = ({ children }) => {
                                             overlay={
                                                 <Menu>
                                                     <Menu.Item key='1' icon={<UserOutlined />}>
-                                                        <Link to={routerLinks.profilePage}>Profile</Link>
+                                                        <Link to={routerLinks.profilePage}>{t('user.profile')}</Link>
                                                     </Menu.Item>
                                                     <Menu.Item key='2' icon={<LogoutOutlined />}>
-                                                        <a onClick={handleSignout}>SignOut</a>
+                                                        <a onClick={handleSignout}>{t('user.logout')}</a>
                                                     </Menu.Item>
                                                 </Menu>
                                             }
